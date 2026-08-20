@@ -89,65 +89,67 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0D0E12] text-white flex flex-col font-sans selection:bg-zinc-700 selection:text-white">
-      {/* Sticky SaaS Navbar */}
-      <nav className="h-20 border-b border-zinc-800 bg-[#12141C]/95 backdrop-blur-xl px-4 sm:px-8 flex items-center justify-between sticky top-0 z-40">
-        <div className="flex items-center space-x-3">
-          <ConvoraIcon className="h-10 w-10" />
-          <div>
-            <span className="font-extrabold text-lg tracking-tight text-white flex items-center gap-1">
-              Convora<span className="text-zinc-300">.ai</span>
-            </span>
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-zinc-400 block -mt-1">
-              Autonomous AI Sales Layer
-            </span>
-          </div>
-        </div>
-
-        {/* Links */}
-        <div className="hidden md:flex items-center space-x-8 text-xs font-semibold text-zinc-300">
-          <a href="#features" className="hover:text-white transition-colors">Features</a>
-          <a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a>
-          <a href="#roi-calculator" className="hover:text-white transition-colors">ROI Calculator</a>
-          <button
-            onClick={() => {
-              setViewMode('playground');
-            }}
-            className="hover:text-white transition-colors flex items-center gap-1 text-zinc-300 font-semibold"
-          >
-            <Cpu className="h-3.5 w-3.5" />
-            <span>AI Playground</span>
-          </button>
-          <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
-          <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-        </div>
-
-        {/* Top Right Convora AI Status + CTA Actions */}
-        <div className="flex items-center space-x-3">
-          <div className="hidden sm:flex items-center px-3 py-1 rounded-xl bg-[#181B24] border border-zinc-700/80 text-xs shadow-sm">
-            <span className="h-2 w-2 rounded-full bg-zinc-300 animate-pulse mr-1.5"></span>
-            <span className="text-white font-bold tracking-tight">Convora AI</span>
+      {/* Floating Flowy Unattached Navbar */}
+      <div className="sticky top-4 z-40 px-4 sm:px-8 w-full max-w-7xl mx-auto pointer-events-none transition-all duration-300">
+        <nav className="pointer-events-auto h-16 sm:h-18 rounded-2xl sm:rounded-full border border-zinc-700/80 bg-[#12141C]/85 backdrop-blur-xl px-4 sm:px-7 flex items-center justify-between shadow-2xl shadow-black/60 ring-1 ring-white/10">
+          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <ConvoraIcon className="h-9 w-9 hover:scale-105 transition-transform" />
+            <div>
+              <span className="font-extrabold text-lg tracking-tight text-white flex items-center gap-1">
+                Convora<span className="text-zinc-300">.ai</span>
+              </span>
+              <span className="text-[9px] uppercase tracking-wider font-semibold text-zinc-400 block -mt-1">
+                Autonomous AI Sales Layer
+              </span>
+            </div>
           </div>
 
-          <button
-            onClick={() => handleOpenAuth('signin')}
-            className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold border border-zinc-700 transition-all"
-          >
-            Sign In
-          </button>
-          <button
-            onClick={() => setViewMode('split')}
-            className="px-4 py-2 rounded-xl bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 text-xs font-bold shadow-lg shadow-black/40 transition-all hover:scale-105 flex items-center space-x-1.5"
-          >
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Launch Live App</span>
-          </button>
-        </div>
-      </nav>
+          {/* Links */}
+          <div className="hidden md:flex items-center space-x-7 text-xs font-semibold text-zinc-300">
+            <a href="#features" className="hover:text-white transition-colors">Features</a>
+            <a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a>
+            <a href="#roi-calculator" className="hover:text-white transition-colors">ROI Calculator</a>
+            <button
+              onClick={() => {
+                setViewMode('playground');
+              }}
+              className="hover:text-white transition-colors flex items-center gap-1 text-zinc-300 font-semibold"
+            >
+              <Cpu className="h-3.5 w-3.5" />
+              <span>AI Playground</span>
+            </button>
+            <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
+            <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
+          </div>
+
+          {/* Top Right Convora AI Status + CTA Actions */}
+          <div className="flex items-center space-x-2.5 sm:space-x-3">
+            <div className="hidden lg:flex items-center px-3 py-1 rounded-full bg-[#181B24] border border-zinc-700/80 text-xs shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-zinc-300 animate-pulse mr-1.5"></span>
+              <span className="text-white font-bold tracking-tight">Convora AI</span>
+            </div>
+
+            <button
+              onClick={() => handleOpenAuth('signin')}
+              className="px-3.5 py-1.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold border border-zinc-700 transition-all"
+            >
+              Sign In
+            </button>
+            <button
+              onClick={() => setViewMode('split')}
+              className="px-4 py-2 rounded-full bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 text-xs font-bold shadow-lg shadow-black/40 transition-all hover:scale-105 flex items-center space-x-1.5"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Launch Live App</span>
+            </button>
+          </div>
+        </nav>
+      </div>
 
       {/* Main Landing Page Flow */}
-      <main className="flex-1 space-y-24 pb-20">
+      <main className="flex-1 space-y-24 pb-20 pt-6">
         {/* HERO SECTION */}
-        <section className="relative pt-12 sm:pt-20 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
+        <section className="relative pt-8 sm:pt-16 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
           <div className="text-center space-y-5 max-w-3xl mx-auto">
             {/* Pill Badge */}
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold shadow-sm">
