@@ -1,19 +1,19 @@
-# ⚡ MagicChat.ai — AI Website Conversion Agent
+# ⚡ Convora AI — Autonomous Website Conversion Layer
 
 > **Autonomous AI Sales Layer for E-Commerce & D2C Websites** that understands the business, watches visitor intent in real-time, proactively steps in during high-friction moments, and measures verified incremental revenue lift.
 
-![License](https://img.shields.io/badge/License-MIT-emerald)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)
-![React](https://img.shields.io/badge/React-18.3-cyan)
-![Vite](https://img.shields.io/badge/Vite-6.0-purple)
-![Tailwind](https://img.shields.io/badge/TailwindCSS-3.4-teal)
+![License](https://img.shields.io/badge/License-MIT-zinc)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.7-zinc)
+![React](https://img.shields.io/badge/React-18.3-zinc)
+![Vite](https://img.shields.io/badge/Vite-6.0-zinc)
+![Tailwind](https://img.shields.io/badge/TailwindCSS-3.4-zinc)
 
 ---
 
 ## 🌟 Key Pillars & Features
 
-1. **🚀 MagicChat.ai Inspired SaaS Landing Page**
-   - High-converting modern SaaS dark theme with glassmorphic cards and glowing ambient neon accents.
+1. **🚀 Convora AI SaaS Landing Page**
+   - High-converting modern SaaS greyish-black theme with steel grey buttons and pure white typography.
    - Live Interactive Hero Chat Simulator embedded directly on the homepage.
    - Dynamic **ROI & Revenue Lift Calculator** with traffic, AOV, and CVR sliders.
    - Interactive Tiered Pricing matrix with Monthly/Annual savings toggle.
@@ -23,7 +23,7 @@
    - 1-Click **Continue with Google** & **Continue with GitHub** social authentication.
    - Email / Password Login, Registration, "Remember Me", and Password Reset magic links.
 
-3. **⚡ AI Model Playground & Prompt Studio**
+3. **⚡ Convora Model Playground & Prompt Studio**
    - Multi-Model Router: **GPT-4o**, **Claude 3.5 Sonnet**, **Gemini 1.5 Pro**, **DeepSeek V3**.
    - Hyperparameter controls: Temperature, Max Completion Tokens, Custom System Prompt Directives.
    - Real-time **RAG Vector Chunk Inspector** showing cosine similarity % and source documents.
@@ -67,7 +67,7 @@ npm install
 ```bash
 npm run dev
 ```
-Open `http://localhost:3000` to view the SaaS Landing Page, Playground Studio, Merchant Dashboard, and Live D2C Storefront.
+Open `http://localhost:3000` to view the Convora AI Landing Page, Playground Studio, Merchant Dashboard, and Live D2C Storefront.
 
 ### 3. Build for Production
 ```bash
@@ -80,12 +80,12 @@ npm run build
 ```html
 <script
   async
-  src="https://cdn.conversionagent.ai/widget.js"
-  data-chatbot-id="ca_aurafit_99x82">
+  src="https://cdn.convora.ai/widget.js"
+  data-chatbot-id="convora_aurafit_99x82">
 </script>
 ```
 
 ---
 
 ## 📄 License
-MIT © 2026 MagicChat.ai / Conversion Agent. All rights reserved.
+MIT © 2026 Convora AI Inc. All rights reserved.

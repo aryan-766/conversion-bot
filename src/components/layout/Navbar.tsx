@@ -19,6 +19,7 @@ import {
 import { OnboardingModal } from '../dashboard/OnboardingModal';
 import { WidgetSnippetModal } from '../dashboard/WidgetSnippetModal';
 import { AuthModal } from '../auth/AuthModal';
+import { ConvoraIcon, ConvoraLogo } from '../common/ConvoraLogo';
 
 export const Navbar: React.FC = () => {
   const {
@@ -47,13 +48,11 @@ export const Navbar: React.FC = () => {
           onClick={() => setViewMode('landing')}
           className="flex items-center space-x-3 cursor-pointer group"
         >
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-b from-zinc-600 via-zinc-700 to-zinc-800 border border-zinc-500/50 flex items-center justify-center shadow-lg shadow-black/40 group-hover:scale-105 transition-transform">
-            <Zap className="h-5 w-5 text-white" />
-          </div>
+          <ConvoraIcon className="h-9 w-9 group-hover:scale-105 transition-transform" />
           <div>
             <div className="flex items-center space-x-2">
-              <span className="font-bold text-base tracking-tight text-white flex items-center gap-1">
-                MagicChat<span className="text-zinc-300">.ai</span>
+              <span className="font-extrabold text-base tracking-tight text-white flex items-center gap-1">
+                Convora<span className="text-zinc-300">.ai</span>
               </span>
               <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700">
                 Sales Layer
@@ -79,7 +78,7 @@ export const Navbar: React.FC = () => {
                 ? 'bg-gradient-to-b from-zinc-600 to-zinc-700 text-white font-semibold shadow-md border border-zinc-500/50'
                 : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
             }`}
-            title="SaaS Landing Page (MagicChat.ai)"
+            title="Convora AI SaaS Landing Page"
           >
             <Home className="h-3.5 w-3.5" />
             <span className="hidden xl:inline">Landing Page</span>
@@ -92,7 +91,7 @@ export const Navbar: React.FC = () => {
                 ? 'bg-gradient-to-b from-zinc-600 to-zinc-700 text-white font-semibold shadow-md border border-zinc-500/50'
                 : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
             }`}
-            title="AI Model Playground & Prompt Studio"
+            title="Convora AI Model Playground & Prompt Studio"
           >
             <Cpu className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Playground</span>
@@ -138,11 +137,18 @@ export const Navbar: React.FC = () => {
           </button>
         </div>
 
-        {/* Quick Actions & User Profile */}
+        {/* Quick Actions & Top Right Convora AI Status */}
         <div className="flex items-center space-x-2 sm:space-x-3">
+          {/* Top Right Convora AI Branding Pill */}
+          <div className="flex items-center px-3 py-1 rounded-xl bg-[#181B24] border border-zinc-700/80 text-xs shadow-sm">
+            <span className="h-2 w-2 rounded-full bg-zinc-300 animate-pulse mr-1.5"></span>
+            <span className="text-white font-bold tracking-tight">Convora AI</span>
+            <span className="text-zinc-400 text-[10px] ml-1.5 font-mono hidden xl:inline">Active</span>
+          </div>
+
           <div className="hidden 2xl:flex items-center px-2.5 py-1 rounded-lg bg-[#181B24] border border-zinc-800 text-xs">
             <Radio className="h-3.5 w-3.5 text-zinc-300 animate-pulse mr-1.5" />
-            <span className="text-zinc-400">Live Visitor:</span>
+            <span className="text-zinc-400">Visitor:</span>
             <span className="text-white font-mono ml-1 font-semibold">#{activeVisitor.id}</span>
             <span className="ml-2 px-1.5 py-0.2 rounded bg-zinc-800 text-zinc-200 font-mono text-[11px] font-bold border border-zinc-700">
               {activeVisitor.intentScore} pts

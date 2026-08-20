@@ -11,6 +11,7 @@ import {
   Zap,
   Github
 } from 'lucide-react';
+import { ConvoraIcon } from '../common/ConvoraLogo';
 
 export const AuthModal: React.FC<{
   isOpen: boolean;
@@ -39,7 +40,7 @@ export const AuthModal: React.FC<{
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
         plan: 'Pro Plan'
       });
-      setSuccessMsg('Successfully authenticated! Welcome back.');
+      setSuccessMsg('Successfully authenticated! Welcome back to Convora AI.');
       setTimeout(() => {
         setSuccessMsg('');
         onClose();
@@ -57,7 +58,7 @@ export const AuthModal: React.FC<{
         avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80',
         plan: 'Scale Plan'
       });
-      setSuccessMsg(`Signed in with ${provider}! Redirecting...`);
+      setSuccessMsg(`Signed in with ${provider}! Welcome to Convora AI.`);
       setTimeout(() => {
         setSuccessMsg('');
         onClose();
@@ -77,11 +78,11 @@ export const AuthModal: React.FC<{
 
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex h-11 w-11 rounded-2xl bg-gradient-to-b from-zinc-600 via-zinc-700 to-zinc-800 border border-zinc-500/50 items-center justify-center shadow-lg shadow-black/40 text-white font-bold mb-1">
-            <Zap className="h-6 w-6 text-white" />
+          <div className="inline-flex items-center justify-center mb-1">
+            <ConvoraIcon className="h-12 w-12" />
           </div>
           <h2 className="text-xl font-extrabold text-white tracking-tight">
-            {mode === 'signin' ? 'Welcome Back to MagicChat' : 'Start Your 14-Day Free Trial'}
+            {mode === 'signin' ? 'Welcome Back to Convora AI' : 'Start Your 14-Day Free Trial'}
           </h2>
           <p className="text-xs text-zinc-400 max-w-xs mx-auto">
             {mode === 'signin'
@@ -207,7 +208,7 @@ export const AuthModal: React.FC<{
             disabled={loading}
             className="w-full py-3 rounded-xl bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg shadow-black/40 transition-all hover:scale-[1.01] disabled:opacity-50"
           >
-            <span>{loading ? 'Authenticating...' : mode === 'signin' ? 'Sign In to Dashboard' : 'Create Free Account'}</span>
+            <span>{loading ? 'Authenticating...' : mode === 'signin' ? 'Sign In to Convora Dashboard' : 'Create Free Convora Account'}</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </form>

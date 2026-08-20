@@ -25,6 +25,7 @@ import {
 import { RoiCalculator } from './RoiCalculator';
 import { PricingSection } from './PricingSection';
 import { AuthModal } from '../auth/AuthModal';
+import { ConvoraIcon, ConvoraLogo } from '../common/ConvoraLogo';
 
 export const LandingPage: React.FC = () => {
   const { setViewMode, setActiveTab } = useApp();
@@ -34,7 +35,7 @@ export const LandingPage: React.FC = () => {
   const [heroChatFeed, setHeroChatFeed] = useState<Array<{ sender: 'user' | 'bot'; text: string }>>([
     {
       sender: 'bot',
-      text: "👋 Hey there! I'm trained on your store's products and policies. Ask me anything or see how I recommend running shoes!"
+      text: "👋 Hey there! I'm Convora AI, trained on your store's products and policies. Ask me anything or see how I recommend running shoes!"
     }
   ]);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -65,20 +66,20 @@ export const LandingPage: React.FC = () => {
 
   const faqs = [
     {
-      q: 'How does this differ from standard chatbot tools like Intercom or Chatbase?',
-      a: 'Generic chatbots wait passively for a visitor to click a bubble and ask generic FAQs. Our AI Conversion Agent watches real-time behavioral signals (PDP dwell time, size guide opens, comparison between products, exit intent cursor acceleration) and proactively steps in at high-friction buying moments with structured product recommendations and verified revenue attribution.'
+      q: 'How does Convora AI differ from standard chatbot tools like Intercom or Chatbase?',
+      a: 'Generic chatbots wait passively for a visitor to click a bubble and ask generic FAQs. Convora AI watches real-time behavioral signals (PDP dwell time, size guide opens, comparison between products, exit intent cursor acceleration) and proactively steps in at high-friction buying moments with structured product recommendations and verified revenue attribution.'
     },
     {
-      q: 'Does it require coding knowledge to install on my website?',
+      q: 'Does Convora AI require coding knowledge to install on my website?',
       a: 'Zero coding is required. You simply paste a single lightweight asynchronous <script> tag (<48KB) right before your </body> tag on Shopify, WooCommerce, Webflow, WordPress, or custom React/HTML stores.'
     },
     {
-      q: 'Can the AI hallucinate unauthorized discounts or fake products?',
-      a: 'No. Our strict schema guardrails and model router enforce structured catalog retrieval. The AI only communicates authorized campaign codes (like SAVE10) when your specified cart and intent thresholds are met.'
+      q: 'Can Convora AI hallucinate unauthorized discounts or fake products?',
+      a: 'No. Our strict schema guardrails and model router enforce structured catalog retrieval. Convora AI only communicates authorized campaign codes (like SAVE10) when your specified cart and intent thresholds are met.'
     },
     {
       q: 'How do you measure incremental revenue lift scientifically?',
-      a: 'We built a built-in A/B experimentation engine. Traffic is split 50/50 between a control group (no proactive AI) and the AI Conversion Agent variant. We calculate conversion rate lift, average order value (AOV), and incremental dollars with statistical confidence.'
+      a: 'We built a built-in A/B experimentation engine. Traffic is split 50/50 between a control group (no Convora AI) and the Convora AI variant. We calculate conversion rate lift, average order value (AOV), and incremental dollars with statistical confidence.'
     },
     {
       q: 'What happens when a visitor asks a question not in the knowledge base?',
@@ -91,12 +92,10 @@ export const LandingPage: React.FC = () => {
       {/* Sticky SaaS Navbar */}
       <nav className="h-20 border-b border-zinc-800 bg-[#12141C]/95 backdrop-blur-xl px-4 sm:px-8 flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center space-x-3">
-          <div className="h-10 w-10 rounded-2xl bg-gradient-to-b from-zinc-600 via-zinc-700 to-zinc-800 border border-zinc-500/50 flex items-center justify-center text-white font-extrabold shadow-lg shadow-black/40">
-            <Zap className="h-6 w-6 text-white" />
-          </div>
+          <ConvoraIcon className="h-10 w-10" />
           <div>
             <span className="font-extrabold text-lg tracking-tight text-white flex items-center gap-1">
-              MagicChat<span className="text-zinc-300">.ai</span>
+              Convora<span className="text-zinc-300">.ai</span>
             </span>
             <span className="text-[10px] uppercase tracking-wider font-semibold text-zinc-400 block -mt-1">
               Autonomous AI Sales Layer
@@ -122,8 +121,13 @@ export const LandingPage: React.FC = () => {
           <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
         </div>
 
-        {/* CTA Actions */}
+        {/* Top Right Convora AI Status + CTA Actions */}
         <div className="flex items-center space-x-3">
+          <div className="hidden sm:flex items-center px-3 py-1 rounded-xl bg-[#181B24] border border-zinc-700/80 text-xs shadow-sm">
+            <span className="h-2 w-2 rounded-full bg-zinc-300 animate-pulse mr-1.5"></span>
+            <span className="text-white font-bold tracking-tight">Convora AI</span>
+          </div>
+
           <button
             onClick={() => handleOpenAuth('signin')}
             className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold border border-zinc-700 transition-all"
@@ -147,8 +151,8 @@ export const LandingPage: React.FC = () => {
           <div className="text-center space-y-5 max-w-3xl mx-auto">
             {/* Pill Badge */}
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-zinc-400 animate-ping"></span>
-              <span>Turn Website Visitors into Buyers with AI Sales Intelligence</span>
+              <ConvoraIcon className="h-4 w-4" />
+              <span>Convora AI — Turn Website Visitors into Buyers with AI Sales Intelligence</span>
             </div>
 
             {/* Main Headline */}
@@ -160,7 +164,7 @@ export const LandingPage: React.FC = () => {
             </h1>
 
             <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-2xl mx-auto">
-              Watches visitor intent in real-time, proactively steps in during sizing or cart hesitation, recommends structured product cards, and measures verified incremental revenue lift.
+              Convora AI watches visitor intent in real-time, proactively steps in during sizing or cart hesitation, recommends structured product cards, and measures verified incremental revenue lift.
             </p>
 
             {/* CTAs */}
@@ -207,7 +211,7 @@ export const LandingPage: React.FC = () => {
                   <div className="h-3 w-3 rounded-full bg-zinc-500"></div>
                   <div className="h-3 w-3 rounded-full bg-zinc-400"></div>
                 </div>
-                <span className="text-zinc-300 font-mono pl-2">https://aurafit-luxe.in (Live AI Sales Layer Active)</span>
+                <span className="text-zinc-300 font-mono pl-2">https://aurafit-luxe.in (Convora AI Sales Layer Active)</span>
               </div>
               <span className="text-zinc-200 font-bold flex items-center gap-1 font-mono">
                 <Flame className="h-3.5 w-3.5 text-zinc-400" /> 88 pts (Hot Intent)
@@ -361,7 +365,7 @@ export const LandingPage: React.FC = () => {
 
             <div className="p-4 rounded-2xl bg-[#0E1017] border border-zinc-800 font-mono text-xs space-y-2 w-full md:w-80">
               <div className="text-zinc-400 text-[11px] flex justify-between">
-                <span>Model: GPT-4o Router</span>
+                <span>Model: Convora Router (GPT-4o)</span>
                 <span className="text-zinc-200">Online</span>
               </div>
               <div className="p-2 rounded-lg bg-zinc-900 text-zinc-300 text-[11px]">
@@ -402,7 +406,7 @@ export const LandingPage: React.FC = () => {
                 ))}
               </div>
               <p className="text-xs text-zinc-300 leading-relaxed italic">
-                "Our footwear store had a 68% cart abandonment rate due to sizing doubts. Within 7 days of installing this AI sales agent, our conversion rate jumped from 2.4% to 3.1%."
+                "Our footwear store had a 68% cart abandonment rate due to sizing doubts. Within 7 days of installing Convora AI, our conversion rate jumped from 2.4% to 3.1%."
               </p>
               <div className="pt-2 border-t border-zinc-800 flex items-center space-x-3">
                 <img
@@ -424,7 +428,7 @@ export const LandingPage: React.FC = () => {
                 ))}
               </div>
               <p className="text-xs text-zinc-300 leading-relaxed italic">
-                "The A/B testing suite is game changing. We proved ₹3.8 Lakhs in incremental revenue in month one. It literally pays for itself in the first 48 hours."
+                "The A/B testing suite is game changing. We proved ₹3.8 Lakhs in incremental revenue in month one. Convora AI literally pays for itself in the first 48 hours."
               </p>
               <div className="pt-2 border-t border-zinc-800 flex items-center space-x-3">
                 <img
@@ -503,7 +507,7 @@ export const LandingPage: React.FC = () => {
                 Ready to Turn More Visitors into Paying Customers?
               </h2>
               <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                Connect your store in 60 seconds. Start your 14-day risk-free trial and watch your conversion lift in real-time.
+                Connect your store with Convora AI in 60 seconds. Start your 14-day risk-free trial and watch your conversion lift in real-time.
               </p>
             </div>
 
@@ -529,10 +533,8 @@ export const LandingPage: React.FC = () => {
       <footer className="border-t border-zinc-800 bg-[#0E1017] py-10 px-4 sm:px-8 text-xs text-zinc-400">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
-            <div className="h-6 w-6 rounded-lg bg-zinc-700 border border-zinc-500 flex items-center justify-center text-white font-bold">
-              <Zap className="h-3.5 w-3.5" />
-            </div>
-            <span className="font-bold text-white">MagicChat.ai — AI Sales Layer for E-Commerce</span>
+            <ConvoraIcon className="h-6 w-6" />
+            <span className="font-bold text-white">Convora AI — Autonomous AI Sales Layer for Websites</span>
           </div>
 
           <div className="flex items-center space-x-6">
@@ -544,7 +546,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="text-zinc-500 text-[11px]">
-            © 2026 MagicChat.ai Inc. All rights reserved.
+            © 2026 Convora AI Inc. All rights reserved.
           </div>
         </div>
       </footer>
