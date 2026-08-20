@@ -41,29 +41,29 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="h-16 border-b border-slate-800 bg-[#0E1420]/90 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
+      <header className="h-16 border-b border-zinc-800 bg-[#12141C]/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
         {/* Brand & Store Selector */}
         <div
           onClick={() => setViewMode('landing')}
           className="flex items-center space-x-3 cursor-pointer group"
         >
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 ring-1 ring-white/20 group-hover:scale-105 transition-transform">
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-b from-zinc-600 via-zinc-700 to-zinc-800 border border-zinc-500/50 flex items-center justify-center shadow-lg shadow-black/40 group-hover:scale-105 transition-transform">
             <Zap className="h-5 w-5 text-white" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-bold text-base tracking-tight text-white flex items-center gap-1">
-                MagicChat<span className="text-emerald-400">.ai</span>
+                MagicChat<span className="text-zinc-300">.ai</span>
               </span>
-              <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700">
                 Sales Layer
               </span>
             </div>
-            <div className="text-xs text-slate-400 flex items-center gap-2">
-              <span className="truncate max-w-[140px] text-slate-300 font-medium">{businessProfile.name}</span>
-              <span className="h-1 w-1 rounded-full bg-slate-600"></span>
-              <span className="text-emerald-400/90 text-[11px] flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <div className="text-xs text-zinc-400 flex items-center gap-2">
+              <span className="truncate max-w-[140px] text-zinc-200 font-medium">{businessProfile.name}</span>
+              <span className="h-1 w-1 rounded-full bg-zinc-600"></span>
+              <span className="text-zinc-300 text-[11px] flex items-center gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 animate-pulse"></span>
                 {activeTriggersCount} Triggers Active
               </span>
             </div>
@@ -71,13 +71,13 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* View Mode Switcher */}
-        <div className="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-800 shadow-inner">
+        <div className="flex items-center bg-[#181B24] p-1 rounded-xl border border-zinc-800 shadow-inner">
           <button
             onClick={() => setViewMode('landing')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
               viewMode === 'landing'
-                ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-gradient-to-b from-zinc-600 to-zinc-700 text-white font-semibold shadow-md border border-zinc-500/50'
+                : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
             }`}
             title="SaaS Landing Page (MagicChat.ai)"
           >
@@ -89,8 +89,8 @@ export const Navbar: React.FC = () => {
             onClick={() => setViewMode('playground')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
               viewMode === 'playground'
-                ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-gradient-to-b from-zinc-600 to-zinc-700 text-white font-semibold shadow-md border border-zinc-500/50'
+                : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
             }`}
             title="AI Model Playground & Prompt Studio"
           >
@@ -102,8 +102,8 @@ export const Navbar: React.FC = () => {
             onClick={() => setViewMode('split')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
               viewMode === 'split'
-                ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-gradient-to-b from-zinc-600 to-zinc-700 text-white font-semibold shadow-md border border-zinc-500/50'
+                : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
             }`}
             title="Side-by-side Merchant Dashboard & Live D2C Storefront"
           >
@@ -115,8 +115,8 @@ export const Navbar: React.FC = () => {
             onClick={() => setViewMode('dashboard')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
               viewMode === 'dashboard'
-                ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-gradient-to-b from-zinc-600 to-zinc-700 text-white font-semibold shadow-md border border-zinc-500/50'
+                : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
             }`}
             title="Merchant Control Room & Intelligence Dashboard"
           >
@@ -128,8 +128,8 @@ export const Navbar: React.FC = () => {
             onClick={() => setViewMode('storefront')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
               viewMode === 'storefront'
-                ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-gradient-to-b from-zinc-600 to-zinc-700 text-white font-semibold shadow-md border border-zinc-500/50'
+                : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
             }`}
             title="Interactive Live Storefront & AI Sales Widget Demo"
           >
@@ -140,18 +140,18 @@ export const Navbar: React.FC = () => {
 
         {/* Quick Actions & User Profile */}
         <div className="flex items-center space-x-2 sm:space-x-3">
-          <div className="hidden 2xl:flex items-center px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs">
-            <Radio className="h-3.5 w-3.5 text-emerald-400 animate-pulse mr-1.5" />
-            <span className="text-slate-400">Live Visitor:</span>
+          <div className="hidden 2xl:flex items-center px-2.5 py-1 rounded-lg bg-[#181B24] border border-zinc-800 text-xs">
+            <Radio className="h-3.5 w-3.5 text-zinc-300 animate-pulse mr-1.5" />
+            <span className="text-zinc-400">Live Visitor:</span>
             <span className="text-white font-mono ml-1 font-semibold">#{activeVisitor.id}</span>
-            <span className="ml-2 px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono text-[11px] font-bold">
+            <span className="ml-2 px-1.5 py-0.2 rounded bg-zinc-800 text-zinc-200 font-mono text-[11px] font-bold border border-zinc-700">
               {activeVisitor.intentScore} pts
             </span>
           </div>
 
           <button
             onClick={resetDemoVisitor}
-            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white text-xs border border-slate-700/60 transition-colors"
+            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 hover:text-white text-xs border border-zinc-700 transition-colors"
             title="Reset active visitor session for testing"
           >
             <RefreshCw className="h-3.5 w-3.5" />
@@ -160,18 +160,18 @@ export const Navbar: React.FC = () => {
 
           <button
             onClick={() => setShowSnippet(true)}
-            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white text-xs border border-slate-700/60 transition-colors"
+            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 hover:text-white text-xs border border-zinc-700 transition-colors"
             title="Get Widget Embed Code"
           >
-            <Code className="h-3.5 w-3.5 text-emerald-400" />
+            <Code className="h-3.5 w-3.5 text-zinc-300" />
             <span className="hidden lg:inline">Snippet</span>
           </button>
 
           <button
             onClick={() => setShowOnboarding(true)}
-            className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 transition-all"
+            className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white font-semibold text-xs border border-zinc-700 transition-all"
           >
-            <Globe className="h-3.5 w-3.5 text-emerald-400" />
+            <Globe className="h-3.5 w-3.5 text-zinc-300" />
             <span>Connect URL</span>
           </button>
 
@@ -180,7 +180,7 @@ export const Navbar: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                className="flex items-center space-x-2 p-1 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors"
+                className="flex items-center space-x-2 p-1 rounded-xl bg-[#181B24] border border-zinc-800 hover:border-zinc-700 transition-colors"
               >
                 <img
                   src={user.avatar}
@@ -191,11 +191,11 @@ export const Navbar: React.FC = () => {
               </button>
 
               {showUserMenu && (
-                <div className="absolute right-0 mt-2 w-48 rounded-2xl bg-slate-900 border border-slate-800 p-2 shadow-2xl z-50 text-xs space-y-1 animate-slide-up">
-                  <div className="px-3 py-2 border-b border-slate-800">
+                <div className="absolute right-0 mt-2 w-48 rounded-2xl bg-[#171922] border border-zinc-800 p-2 shadow-2xl z-50 text-xs space-y-1 animate-slide-up">
+                  <div className="px-3 py-2 border-b border-zinc-800">
                     <div className="font-bold text-white truncate">{user.name}</div>
-                    <div className="text-[10px] text-slate-400 truncate">{user.email}</div>
-                    <span className="mt-1 inline-block text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-semibold uppercase">
+                    <div className="text-[10px] text-zinc-400 truncate">{user.email}</div>
+                    <span className="mt-1 inline-block text-[9px] px-1.5 py-0.2 rounded bg-zinc-800 text-zinc-300 font-semibold uppercase border border-zinc-700">
                       {user.plan}
                     </span>
                   </div>
@@ -204,7 +204,7 @@ export const Navbar: React.FC = () => {
                       setViewMode('dashboard');
                       setShowUserMenu(false);
                     }}
-                    className="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white"
+                    className="w-full text-left px-3 py-1.5 rounded-lg hover:bg-zinc-800 text-zinc-300 hover:text-white"
                   >
                     Merchant Dashboard
                   </button>
@@ -213,7 +213,7 @@ export const Navbar: React.FC = () => {
                       logoutUser();
                       setShowUserMenu(false);
                     }}
-                    className="w-full text-left px-3 py-1.5 rounded-lg hover:bg-rose-500/10 text-rose-400 flex items-center space-x-1.5"
+                    className="w-full text-left px-3 py-1.5 rounded-lg hover:bg-rose-950/40 text-rose-400 flex items-center space-x-1.5"
                   >
                     <LogOut className="h-3.5 w-3.5" />
                     <span>Sign Out</span>
@@ -224,7 +224,7 @@ export const Navbar: React.FC = () => {
           ) : (
             <button
               onClick={() => setShowAuthModal(true)}
-              className="px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all shadow-md shadow-emerald-500/20"
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 text-xs font-bold transition-all shadow-md"
             >
               Sign In
             </button>

@@ -25,13 +25,13 @@ export const LeadCaptureForm: React.FC = () => {
 
   if (submitted) {
     return (
-      <div className="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-xs text-emerald-300 space-y-1">
+      <div className="p-3.5 rounded-2xl bg-[#14161F] border border-zinc-700 text-xs text-zinc-200 space-y-1">
         <div className="font-bold flex items-center gap-1.5 text-white">
-          <CheckCircle className="h-4 w-4 text-emerald-400" />
+          <CheckCircle className="h-4 w-4 text-zinc-300" />
           VIP Consultation Scheduled!
         </div>
-        <p className="text-[11px] text-slate-300">
-          Our senior fit specialist will call you at <strong className="text-emerald-400 font-mono">{phone}</strong> within 30 minutes.
+        <p className="text-[11px] text-zinc-300">
+          Our senior fit specialist will call you at <strong className="text-white font-mono">{phone}</strong> within 30 minutes.
         </p>
       </div>
     );
@@ -40,53 +40,53 @@ export const LeadCaptureForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-4 rounded-2xl bg-slate-900 border border-emerald-500/30 space-y-2.5 max-w-sm text-xs shadow-lg"
+      className="p-4 rounded-2xl bg-[#13151E] border border-zinc-700 space-y-2.5 max-w-sm text-xs shadow-lg text-white"
     >
-      <div className="flex items-center space-x-1.5 text-emerald-400 font-bold text-[11px]">
-        <Sparkles className="h-3.5 w-3.5" />
+      <div className="flex items-center space-x-1.5 text-zinc-200 font-bold text-[11px]">
+        <Sparkles className="h-3.5 w-3.5 text-zinc-300" />
         <span>Request VIP Footwear Specialist Callback</span>
       </div>
 
       <div className="space-y-2">
         <div className="relative">
-          <User className="h-3.5 w-3.5 text-slate-500 absolute left-2.5 top-2.5" />
+          <User className="h-3.5 w-3.5 text-zinc-500 absolute left-2.5 top-2.5" />
           <input
             type="text"
             required
             placeholder="Your Full Name"
             value={name}
             onChange={e => setName(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-2.5 py-1.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-8 pr-2.5 py-1.5 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500"
           />
         </div>
 
         <div className="relative">
-          <Phone className="h-3.5 w-3.5 text-slate-500 absolute left-2.5 top-2.5" />
+          <Phone className="h-3.5 w-3.5 text-zinc-500 absolute left-2.5 top-2.5" />
           <input
             type="tel"
             required
             placeholder="Phone Number (+91 ...)"
             value={phone}
             onChange={e => setPhone(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-2.5 py-1.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-500 font-mono"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-8 pr-2.5 py-1.5 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500 font-mono"
           />
         </div>
 
         <div className="relative">
-          <Mail className="h-3.5 w-3.5 text-slate-500 absolute left-2.5 top-2.5" />
+          <Mail className="h-3.5 w-3.5 text-zinc-500 absolute left-2.5 top-2.5" />
           <input
             type="email"
             placeholder="Email Address (Optional)"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-2.5 py-1.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-8 pr-2.5 py-1.5 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500"
           />
         </div>
       </div>
 
       <button
         type="submit"
-        className="w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center space-x-1.5 shadow-md shadow-emerald-500/20 transition-all"
+        className="w-full py-2 rounded-xl bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 font-bold text-xs flex items-center justify-center space-x-1.5 shadow-md transition-all"
       >
         <span>Request 30-Min Callback</span>
         <Send className="h-3 w-3" />

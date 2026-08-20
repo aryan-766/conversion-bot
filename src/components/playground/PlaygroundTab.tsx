@@ -128,30 +128,30 @@ Recommend relevant products with structured product cards, handle sizing or retu
   };
 
   return (
-    <div className="space-y-6 pb-8 animate-fade-in">
+    <div className="space-y-6 pb-8 animate-fade-in text-white">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-white flex items-center gap-2">
-            <Cpu className="h-5 w-5 text-emerald-400" />
+            <Cpu className="h-5 w-5 text-zinc-300" />
             AI Model Playground & Prompt Studio
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-zinc-400 mt-0.5">
             Test system prompts, compare LLM response latency, inspect RAG vector chunk retrieval, and fine-tune sales responses.
           </p>
         </div>
 
         {/* Telemetry Pills */}
         <div className="flex items-center space-x-2 text-xs">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center space-x-1.5">
-            <Clock className="h-3.5 w-3.5 text-cyan-400" />
-            <span className="text-slate-400">Latency:</span>
+          <div className="px-3 py-1.5 rounded-xl bg-[#14161F] border border-zinc-800 flex items-center space-x-1.5">
+            <Clock className="h-3.5 w-3.5 text-zinc-400" />
+            <span className="text-zinc-400">Latency:</span>
             <span className="font-mono text-white font-bold">{lastLatencyMs}ms</span>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center space-x-1.5">
-            <Coins className="h-3.5 w-3.5 text-emerald-400" />
-            <span className="text-slate-400">Est. Cost:</span>
-            <span className="font-mono text-emerald-400 font-bold">{lastTokenUsage.cost}</span>
+          <div className="px-3 py-1.5 rounded-xl bg-[#14161F] border border-zinc-800 flex items-center space-x-1.5">
+            <Coins className="h-3.5 w-3.5 text-zinc-300" />
+            <span className="text-zinc-400">Est. Cost:</span>
+            <span className="font-mono text-zinc-200 font-bold">{lastTokenUsage.cost}</span>
           </div>
         </div>
       </div>
@@ -159,19 +159,19 @@ Recommend relevant products with structured product cards, handle sizing or retu
       {/* Main Grid: Parameters Sidebar + Interactive Chat Viewport */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Model & Prompt Configuration */}
-        <div className="lg:col-span-4 p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
-          <div className="flex items-center space-x-2 pb-2 border-b border-slate-800 text-xs font-bold text-white">
-            <Sliders className="h-4 w-4 text-emerald-400" />
+        <div className="lg:col-span-4 p-5 rounded-2xl bg-[#13151E] border border-zinc-800 space-y-4">
+          <div className="flex items-center space-x-2 pb-2 border-b border-zinc-800 text-xs font-bold text-white">
+            <Sliders className="h-4 w-4 text-zinc-300" />
             <span>Model Hyperparameters & Router</span>
           </div>
 
           {/* Model Selector */}
           <div className="space-y-1.5 text-xs">
-            <label className="block text-slate-300 font-semibold">Active LLM Model</label>
+            <label className="block text-zinc-300 font-semibold">Active LLM Model</label>
             <select
               value={selectedModel}
               onChange={e => setSelectedModel(e.target.value as any)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-white font-mono focus:outline-none focus:border-emerald-500"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2.5 text-white font-mono focus:outline-none focus:border-zinc-500"
             >
               <option value="gpt-4o">OpenAI GPT-4o (Production Sales Closer)</option>
               <option value="claude-3-5-sonnet">Anthropic Claude 3.5 Sonnet (Nuanced Advice)</option>
@@ -182,9 +182,9 @@ Recommend relevant products with structured product cards, handle sizing or retu
 
           {/* Temperature Slider */}
           <div className="space-y-1.5 text-xs">
-            <div className="flex justify-between text-slate-300">
+            <div className="flex justify-between text-zinc-300">
               <span className="font-semibold">Temperature:</span>
-              <span className="font-mono font-bold text-emerald-400">{temperature}</span>
+              <span className="font-mono font-bold text-zinc-200">{temperature}</span>
             </div>
             <input
               type="range"
@@ -193,9 +193,9 @@ Recommend relevant products with structured product cards, handle sizing or retu
               step="0.05"
               value={temperature}
               onChange={e => setTemperature(parseFloat(e.target.value))}
-              className="w-full accent-emerald-500 bg-slate-950"
+              className="w-full accent-zinc-400 bg-zinc-950"
             />
-            <div className="flex justify-between text-[10px] text-slate-500">
+            <div className="flex justify-between text-[10px] text-zinc-500">
               <span>0.0 (Deterministic)</span>
               <span>1.0 (Creative)</span>
             </div>
@@ -203,9 +203,9 @@ Recommend relevant products with structured product cards, handle sizing or retu
 
           {/* Max Tokens */}
           <div className="space-y-1.5 text-xs">
-            <div className="flex justify-between text-slate-300">
+            <div className="flex justify-between text-zinc-300">
               <span className="font-semibold">Max Completion Tokens:</span>
-              <span className="font-mono font-bold text-cyan-400">{maxTokens}</span>
+              <span className="font-mono font-bold text-zinc-200">{maxTokens}</span>
             </div>
             <input
               type="range"
@@ -214,14 +214,14 @@ Recommend relevant products with structured product cards, handle sizing or retu
               step="64"
               value={maxTokens}
               onChange={e => setMaxTokens(parseInt(e.target.value))}
-              className="w-full accent-cyan-500 bg-slate-950"
+              className="w-full accent-zinc-400 bg-zinc-950"
             />
           </div>
 
           {/* System Prompt Customizer */}
-          <div className="space-y-1.5 text-xs pt-2 border-t border-slate-800">
+          <div className="space-y-1.5 text-xs pt-2 border-t border-zinc-800">
             <div className="flex items-center justify-between">
-              <label className="text-slate-300 font-semibold">System Prompt Directive</label>
+              <label className="text-zinc-300 font-semibold">System Prompt Directive</label>
               <button
                 onClick={() =>
                   setSystemPrompt(
@@ -230,7 +230,7 @@ Respond in concise, natural sentences (1-3 sentences max).
 Recommend relevant products with structured product cards, handle sizing or return hesitations, and proactively communicate authorized campaign codes.`
                   )
                 }
-                className="text-[10px] text-slate-500 hover:text-emerald-400 flex items-center gap-1"
+                className="text-[10px] text-zinc-500 hover:text-zinc-300 flex items-center gap-1"
               >
                 <RotateCcw className="h-3 w-3" /> Reset
               </button>
@@ -239,13 +239,13 @@ Recommend relevant products with structured product cards, handle sizing or retu
               rows={5}
               value={systemPrompt}
               onChange={e => setSystemPrompt(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white text-[11px] font-mono leading-relaxed focus:outline-none focus:border-emerald-500"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-white text-[11px] font-mono leading-relaxed focus:outline-none focus:border-zinc-500"
             />
           </div>
 
           {/* Preset Prompts */}
           <div className="space-y-1.5 text-xs">
-            <span className="text-[11px] text-slate-400 font-semibold">Quick Directive Presets:</span>
+            <span className="text-[11px] text-zinc-400 font-semibold">Quick Directive Presets:</span>
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() =>
@@ -253,7 +253,7 @@ Recommend relevant products with structured product cards, handle sizing or retu
                     `You are an aggressive high-converting D2C sales specialist. Emphasize limited-time scarcity, instant 10% coupon codes, and 7-day hassle-free doorstep returns.`
                   )
                 }
-                className="px-2.5 py-1 rounded-lg bg-slate-950 text-slate-400 hover:text-white border border-slate-800 text-[10px]"
+                className="px-2.5 py-1 rounded-lg bg-zinc-950 text-zinc-400 hover:text-white border border-zinc-800 text-[10px]"
               >
                 Aggressive Sales Closer
               </button>
@@ -263,7 +263,7 @@ Recommend relevant products with structured product cards, handle sizing or retu
                     `You are a sympathetic orthopedic and marathon foot specialist. Guide runners with sizing, arch support, and cushioning options without pushing discounts.`
                   )
                 }
-                className="px-2.5 py-1 rounded-lg bg-slate-950 text-slate-400 hover:text-white border border-slate-800 text-[10px]"
+                className="px-2.5 py-1 rounded-lg bg-zinc-950 text-zinc-400 hover:text-white border border-zinc-800 text-[10px]"
               >
                 Footwear Ergonomics Expert
               </button>
@@ -272,7 +272,7 @@ Recommend relevant products with structured product cards, handle sizing or retu
         </div>
 
         {/* Right Column: Interactive Chat & RAG Vector Inspector */}
-        <div className="lg:col-span-8 p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between h-[680px]">
+        <div className="lg:col-span-8 p-5 rounded-2xl bg-[#13151E] border border-zinc-800 flex flex-col justify-between h-[680px]">
           {/* Chat Messages Log */}
           <div className="flex-1 overflow-y-auto space-y-4 pr-2 text-xs">
             {playgroundMessages.map(msg => (
@@ -280,15 +280,15 @@ Recommend relevant products with structured product cards, handle sizing or retu
                 key={msg.id}
                 className={`space-y-2 ${msg.sender === 'user' ? 'flex flex-col items-end' : 'flex flex-col items-start'}`}
               >
-                <div className="flex items-center space-x-2 text-[10px] text-slate-500 font-mono">
+                <div className="flex items-center space-x-2 text-[10px] text-zinc-500 font-mono">
                   <span>{msg.sender === 'user' ? 'User Test Query' : `Assistant (${msg.modelUsed || selectedModel})`}</span>
                 </div>
 
                 <div
                   className={`p-4 rounded-2xl max-w-xl leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-emerald-500 text-slate-950 font-medium'
-                      : 'bg-slate-950 border border-slate-800 text-slate-200'
+                      ? 'bg-zinc-700 text-white border border-zinc-600 font-medium'
+                      : 'bg-zinc-950 border border-zinc-800 text-zinc-200'
                   }`}
                 >
                   <p className="whitespace-pre-line">{msg.content}</p>
@@ -296,7 +296,7 @@ Recommend relevant products with structured product cards, handle sizing or retu
                   {/* Attached Products */}
                   {msg.products && msg.products.length > 0 && (
                     <div className="mt-3 space-y-2">
-                      <div className="text-[10px] uppercase font-bold text-slate-400">
+                      <div className="text-[10px] uppercase font-bold text-zinc-400">
                         Structured Output Card:
                       </div>
                       <div className="flex flex-wrap gap-2">
@@ -310,18 +310,18 @@ Recommend relevant products with structured product cards, handle sizing or retu
 
                 {/* Matched RAG Knowledge Chunks Inspector */}
                 {msg.matchedChunks && msg.matchedChunks.length > 0 && (
-                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1.5 max-w-xl text-[11px]">
-                    <div className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <div className="p-3 rounded-xl bg-zinc-950 border border-zinc-800 space-y-1.5 max-w-xl text-[11px]">
+                    <div className="text-[10px] font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
                       <Database className="h-3 w-3" />
                       <span>Retrieved Vector Knowledge Chunks (RAG Index)</span>
                     </div>
                     {msg.matchedChunks.map((chk, idx) => (
-                      <div key={idx} className="p-2 rounded-lg bg-slate-900 border border-slate-800 space-y-0.5">
-                        <div className="flex items-center justify-between text-slate-300">
+                      <div key={idx} className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 space-y-0.5">
+                        <div className="flex items-center justify-between text-zinc-300">
                           <span className="font-semibold text-white">{chk.title}</span>
-                          <span className="font-mono text-emerald-400 font-bold">{chk.similarity}% Match</span>
+                          <span className="font-mono text-zinc-300 font-bold">{chk.similarity}% Match</span>
                         </div>
-                        <p className="text-slate-400 text-[10px] italic">"{chk.text}"</p>
+                        <p className="text-zinc-400 text-[10px] italic">"{chk.text}"</p>
                       </div>
                     ))}
                   </div>
@@ -330,7 +330,7 @@ Recommend relevant products with structured product cards, handle sizing or retu
             ))}
 
             {isGenerating && (
-              <div className="flex items-center space-x-2 p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-emerald-400 animate-pulse w-48">
+              <div className="flex items-center space-x-2 p-3 rounded-xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-300 animate-pulse w-48">
                 <Sparkles className="h-3.5 w-3.5 animate-spin" />
                 <span>Generating response...</span>
               </div>
@@ -338,7 +338,7 @@ Recommend relevant products with structured product cards, handle sizing or retu
           </div>
 
           {/* Quick Preset Prompts */}
-          <div className="pt-3 border-t border-slate-800 space-y-2">
+          <div className="pt-3 border-t border-zinc-800 space-y-2">
             <div className="flex flex-wrap gap-1.5">
               {[
                 'What is your 7-day return and exchange policy?',
@@ -349,7 +349,7 @@ Recommend relevant products with structured product cards, handle sizing or retu
                 <button
                   key={i}
                   onClick={() => handleTestSend(query)}
-                  className="px-2.5 py-1 rounded-full bg-slate-950 text-slate-400 hover:text-emerald-400 hover:border-emerald-500/40 border border-slate-800 text-[11px] transition-all text-left"
+                  className="px-2.5 py-1 rounded-full bg-zinc-950 text-zinc-400 hover:text-white hover:border-zinc-600 border border-zinc-800 text-[11px] transition-all text-left"
                 >
                   "{query}"
                 </button>
@@ -364,12 +364,12 @@ Recommend relevant products with structured product cards, handle sizing or retu
                 value={playgroundInput}
                 onChange={e => setPlaygroundInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleTestSend()}
-                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                className="flex-1 bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
               />
               <button
                 onClick={() => handleTestSend()}
                 disabled={isGenerating || !playgroundInput.trim()}
-                className="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center space-x-1.5 transition-all shadow-md shadow-emerald-500/20 disabled:opacity-40"
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 font-bold text-xs flex items-center space-x-1.5 transition-all shadow-md disabled:opacity-40"
               >
                 <span>Test Query</span>
                 <Send className="h-3.5 w-3.5" />

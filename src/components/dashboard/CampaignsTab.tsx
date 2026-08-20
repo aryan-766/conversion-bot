@@ -55,22 +55,22 @@ export const CampaignsTab: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-8 animate-fade-in">
+    <div className="space-y-6 pb-8 animate-fade-in text-white">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-white flex items-center gap-2">
-            <Tag className="h-5 w-5 text-emerald-400" />
+            <Tag className="h-5 w-5 text-zinc-300" />
             Authorized Discount & Offer Campaigns
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-zinc-400 mt-0.5">
             AI does not invent discounts. It communicates approved campaigns only when conditions (Intent + Cart value) match.
           </p>
         </div>
 
         <button
           onClick={() => setShowAddModal(true)}
-          className="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold flex items-center space-x-1.5 transition-all shadow-md shadow-emerald-500/20"
+          className="px-3.5 py-2 rounded-xl bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 text-xs font-bold flex items-center space-x-1.5 transition-all shadow-md"
         >
           <Plus className="h-4 w-4" />
           <span>Create Offer Campaign</span>
@@ -84,8 +84,8 @@ export const CampaignsTab: React.FC = () => {
             key={camp.id}
             className={`p-5 rounded-2xl border transition-all flex flex-col justify-between ${
               camp.isActive
-                ? 'bg-slate-900/90 border-slate-800 hover:border-slate-700'
-                : 'bg-slate-950/40 border-slate-800/40 opacity-60'
+                ? 'bg-[#13151E] border-zinc-800 hover:border-zinc-700'
+                : 'bg-[#0E1017]/60 border-zinc-800/40 opacity-60'
             }`}
           >
             <div className="space-y-3">
@@ -93,7 +93,7 @@ export const CampaignsTab: React.FC = () => {
                 <div>
                   <h3 className="text-sm font-bold text-white">{camp.name}</h3>
                   <div className="flex items-center space-x-2 mt-1">
-                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-zinc-800 text-zinc-200 border border-zinc-700">
                       {camp.code}
                     </span>
                     <span className="text-xs font-bold text-white font-mono">
@@ -105,7 +105,7 @@ export const CampaignsTab: React.FC = () => {
                 <button
                   onClick={() => toggleCampaign(camp.id)}
                   className={`p-1.5 rounded-lg transition-colors ${
-                    camp.isActive ? 'text-emerald-400 bg-emerald-500/10' : 'text-slate-500 bg-slate-800'
+                    camp.isActive ? 'text-zinc-200 bg-zinc-800' : 'text-zinc-500 bg-zinc-900'
                   }`}
                   title={camp.isActive ? 'Active' : 'Inactive'}
                 >
@@ -114,34 +114,34 @@ export const CampaignsTab: React.FC = () => {
               </div>
 
               {/* Conditions */}
-              <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs space-y-1.5">
-                <div className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">
+              <div className="p-3 rounded-xl bg-[#0E1017] border border-zinc-800 text-xs space-y-1.5">
+                <div className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">
                   Targeting Conditions
                 </div>
-                <div className="text-slate-300 flex items-center justify-between text-[11px]">
+                <div className="text-zinc-300 flex items-center justify-between text-[11px]">
                   <span>Minimum Intent:</span>
-                  <strong className="text-amber-400 font-mono">≥ {camp.conditions.minIntentScore} pts 🔥</strong>
+                  <strong className="text-zinc-200 font-mono">≥ {camp.conditions.minIntentScore} pts 🔥</strong>
                 </div>
-                <div className="text-slate-300 flex items-center justify-between text-[11px]">
+                <div className="text-zinc-300 flex items-center justify-between text-[11px]">
                   <span>Min Cart Value:</span>
                   <strong className="text-white font-mono">₹{camp.conditions.minCartAmount}</strong>
                 </div>
-                <div className="text-slate-300 flex items-center justify-between text-[11px]">
+                <div className="text-zinc-300 flex items-center justify-between text-[11px]">
                   <span>Scope:</span>
-                  <strong className="text-slate-400">{camp.conditions.firstOrderOnly ? '1st Order Only' : 'All Shoppers'}</strong>
+                  <strong className="text-zinc-400">{camp.conditions.firstOrderOnly ? '1st Order Only' : 'All Shoppers'}</strong>
                 </div>
               </div>
             </div>
 
             {/* Performance Footer */}
-            <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+            <div className="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between text-xs">
               <div>
-                <div className="text-[10px] text-slate-500">Redemptions</div>
+                <div className="text-[10px] text-zinc-500">Redemptions</div>
                 <div className="font-bold text-white font-mono">{camp.redemptions}</div>
               </div>
               <div className="text-right">
-                <div className="text-[10px] text-slate-500">Revenue Influenced</div>
-                <div className="font-bold text-emerald-400 font-mono">
+                <div className="text-[10px] text-zinc-500">Revenue Influenced</div>
+                <div className="font-bold text-white font-mono">
                   ₹{(camp.revenueInfluenced / 1000).toFixed(1)}k
                 </div>
               </div>
@@ -153,44 +153,44 @@ export const CampaignsTab: React.FC = () => {
       {/* Create Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+          <div className="bg-[#13151E] border border-zinc-700 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
             <h2 className="text-base font-bold text-white">Create New Discount Campaign</h2>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1">Campaign Name</label>
+                <label className="block text-zinc-300 mb-1">Campaign Name</label>
                 <input
                   type="text"
                   value={newCampaign.name}
                   onChange={e => setNewCampaign({ ...newCampaign, name: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-400 mb-1">Coupon Code</label>
+                  <label className="block text-zinc-300 mb-1">Coupon Code</label>
                   <input
                     type="text"
                     value={newCampaign.code}
                     onChange={e => setNewCampaign({ ...newCampaign, code: e.target.value.toUpperCase() })}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white uppercase font-mono font-bold"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white uppercase font-mono font-bold"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Discount %</label>
+                  <label className="block text-zinc-300 mb-1">Discount %</label>
                   <input
                     type="number"
                     value={newCampaign.discountPercentage}
                     onChange={e => setNewCampaign({ ...newCampaign, discountPercentage: parseInt(e.target.value) || 0 })}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white font-mono"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-400 mb-1">Min Intent Score</label>
+                  <label className="block text-zinc-300 mb-1">Min Intent Score</label>
                   <input
                     type="number"
                     value={newCampaign.conditions?.minIntentScore || 65}
@@ -200,11 +200,11 @@ export const CampaignsTab: React.FC = () => {
                         conditions: { ...newCampaign.conditions!, minIntentScore: parseInt(e.target.value) || 0 }
                       })
                     }
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Min Cart Amount (₹)</label>
+                  <label className="block text-zinc-300 mb-1">Min Cart Amount (₹)</label>
                   <input
                     type="number"
                     value={newCampaign.conditions?.minCartAmount || 1500}
@@ -214,22 +214,22 @@ export const CampaignsTab: React.FC = () => {
                         conditions: { ...newCampaign.conditions!, minCartAmount: parseInt(e.target.value) || 0 }
                       })
                     }
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white font-mono"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-end space-x-2 pt-2 border-t border-slate-800">
+            <div className="flex justify-end space-x-2 pt-2 border-t border-zinc-800">
               <button
                 onClick={() => setShowAddModal(false)}
-                className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700"
+                className="px-4 py-2 rounded-xl bg-zinc-800 text-zinc-300 text-xs font-semibold hover:bg-zinc-700"
               >
                 Cancel
               </button>
               <button
                 onClick={handleCreateCampaign}
-                className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold"
+                className="px-4 py-2 rounded-xl bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 text-xs font-bold"
               >
                 Launch Campaign
               </button>

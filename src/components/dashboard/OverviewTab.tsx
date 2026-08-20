@@ -37,8 +37,8 @@ export const OverviewTab: React.FC = () => {
       trend: 'up',
       subtitle: 'Across all channels',
       icon: Users,
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/10 border-blue-500/20'
+      color: 'text-zinc-200',
+      bg: 'bg-zinc-800 border-zinc-700'
     },
     {
       title: 'High Intent Visitors',
@@ -47,8 +47,8 @@ export const OverviewTab: React.FC = () => {
       trend: 'up',
       subtitle: 'Intent score ≥ 75 pts',
       icon: Flame,
-      color: 'text-amber-400',
-      bg: 'bg-amber-500/10 border-amber-500/20'
+      color: 'text-zinc-200',
+      bg: 'bg-zinc-800 border-zinc-700'
     },
     {
       title: 'AI Engaged Sessions',
@@ -57,8 +57,8 @@ export const OverviewTab: React.FC = () => {
       trend: 'up',
       subtitle: 'Proactively assisted',
       icon: Zap,
-      color: 'text-cyan-400',
-      bg: 'bg-cyan-500/10 border-cyan-500/20'
+      color: 'text-zinc-200',
+      bg: 'bg-zinc-800 border-zinc-700'
     },
     {
       title: 'Qualified Leads Captured',
@@ -67,8 +67,8 @@ export const OverviewTab: React.FC = () => {
       trend: 'up',
       subtitle: 'Callbacks & consultations',
       icon: UserCheck,
-      color: 'text-indigo-400',
-      bg: 'bg-indigo-500/10 border-indigo-500/20'
+      color: 'text-zinc-200',
+      bg: 'bg-zinc-800 border-zinc-700'
     },
     {
       title: 'AI-Assisted Revenue',
@@ -77,8 +77,8 @@ export const OverviewTab: React.FC = () => {
       trend: 'up',
       subtitle: 'Measurably influenced',
       icon: TrendingUp,
-      color: 'text-emerald-400',
-      bg: 'bg-emerald-500/10 border-emerald-500/20'
+      color: 'text-white font-bold',
+      bg: 'bg-zinc-800 border-zinc-600'
     },
     {
       title: 'A/B Conversion Lift',
@@ -87,26 +87,26 @@ export const OverviewTab: React.FC = () => {
       trend: 'up',
       subtitle: `${experiment.variant.conversionRate}% AI vs ${experiment.control.conversionRate}% Control`,
       icon: Percent,
-      color: 'text-emerald-300',
-      bg: 'bg-emerald-500/10 border-emerald-500/30 font-bold'
+      color: 'text-white font-bold',
+      bg: 'bg-zinc-800 border-zinc-600'
     }
   ];
 
   return (
-    <div className="space-y-6 pb-8 animate-fade-in">
+    <div className="space-y-6 pb-8 animate-fade-in text-white">
       {/* Top Banner */}
-      <div className="p-5 rounded-2xl bg-gradient-to-r from-emerald-950/50 via-slate-900 to-cyan-950/40 border border-emerald-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="p-5 rounded-2xl bg-gradient-to-r from-[#181A24] via-[#14161F] to-[#10121A] border border-zinc-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+            <span className="h-2 w-2 rounded-full bg-zinc-400 animate-ping"></span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-300">
               Autonomous Sales Agent Online
             </span>
           </div>
           <h1 className="text-xl font-bold text-white mt-1">
             Conversion & Revenue Attribution Hub
           </h1>
-          <p className="text-xs text-slate-300 max-w-2xl mt-0.5">
+          <p className="text-xs text-zinc-400 max-w-2xl mt-0.5">
             Your AI Sales Agent is actively monitoring visitor intent in real-time, intervening at high-friction moments, and calculating verified incremental revenue.
           </p>
         </div>
@@ -114,7 +114,7 @@ export const OverviewTab: React.FC = () => {
         <div className="flex items-center space-x-2 self-stretch md:self-auto">
           <button
             onClick={() => setViewMode('split')}
-            className="flex-1 md:flex-none px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-semibold transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center space-x-1.5"
+            className="flex-1 md:flex-none px-4 py-2.5 rounded-xl bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 text-xs font-semibold transition-all shadow-md flex items-center justify-center space-x-1.5"
           >
             <Sparkles className="h-4 w-4" />
             <span>Test Live Store Simulation</span>
@@ -129,21 +129,21 @@ export const OverviewTab: React.FC = () => {
           return (
             <div
               key={idx}
-              className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-slate-700/80 transition-all group"
+              className="p-4 rounded-2xl bg-[#13151E] border border-zinc-800 hover:border-zinc-700 transition-all group"
             >
               <div className="flex items-center justify-between">
                 <div className={`p-2.5 rounded-xl border ${stat.bg}`}>
                   <Icon className={`h-5 w-5 ${stat.color}`} />
                 </div>
-                <span className="inline-flex items-center text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="inline-flex items-center text-[11px] font-semibold px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-200 border border-zinc-700">
                   <ArrowUpRight className="h-3 w-3 mr-0.5" />
                   {stat.change}
                 </span>
               </div>
               <div className="mt-3">
-                <div className="text-xs text-slate-400 font-medium">{stat.title}</div>
+                <div className="text-xs text-zinc-400 font-medium">{stat.title}</div>
                 <div className="text-2xl font-bold text-white tracking-tight mt-0.5">{stat.value}</div>
-                <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
+                <div className="text-[11px] text-zinc-500 mt-1 flex items-center gap-1">
                   <span>{stat.subtitle}</span>
                 </div>
               </div>
@@ -155,31 +155,31 @@ export const OverviewTab: React.FC = () => {
       {/* Two Column Layout: Conversion Funnel & Trigger Performance */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Conversion Funnel */}
-        <div className="lg:col-span-7 p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+        <div className="lg:col-span-7 p-5 rounded-2xl bg-[#13151E] border border-zinc-800 space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-sm font-bold text-white">Full-Funnel Visitor Conversion Journey</h2>
-              <p className="text-xs text-slate-400">Real-time progression from initial landing to final order</p>
+              <p className="text-xs text-zinc-400">Real-time progression from initial landing to final order</p>
             </div>
-            <span className="text-xs text-emerald-400 font-mono font-semibold">+22.2% Overall Lift</span>
+            <span className="text-xs text-zinc-200 font-mono font-semibold">+22.2% Overall Lift</span>
           </div>
 
           <div className="space-y-3 pt-2">
             {[
-              { label: '1. Store Visitors', count: '28,421', pct: '100%', color: 'bg-blue-500' },
-              { label: '2. High Intent Signals Detected', count: '6,480', pct: '22.8%', color: 'bg-cyan-500' },
-              { label: '3. Proactive Interventions Fired', count: '3,842', pct: '13.5%', color: 'bg-emerald-500' },
-              { label: '4. AI Sales Conversations Started', count: '1,420', pct: '5.0%', color: 'bg-teal-400' },
-              { label: '5. Completed Orders & Leads', count: `${totalConversions}`, pct: `${((totalConversions / 28421) * 100).toFixed(2)}%`, color: 'bg-emerald-400' },
+              { label: '1. Store Visitors', count: '28,421', pct: '100%', color: 'bg-zinc-600' },
+              { label: '2. High Intent Signals Detected', count: '6,480', pct: '22.8%', color: 'bg-zinc-500' },
+              { label: '3. Proactive Interventions Fired', count: '3,842', pct: '13.5%', color: 'bg-zinc-400' },
+              { label: '4. AI Sales Conversations Started', count: '1,420', pct: '5.0%', color: 'bg-zinc-300' },
+              { label: '5. Completed Orders & Leads', count: `${totalConversions}`, pct: `${((totalConversions / 28421) * 100).toFixed(2)}%`, color: 'bg-white' },
             ].map((stage, idx) => (
               <div key={idx} className="space-y-1">
                 <div className="flex justify-between text-xs font-medium">
-                  <span className="text-slate-300">{stage.label}</span>
-                  <span className="text-slate-400 font-mono">
+                  <span className="text-zinc-300">{stage.label}</span>
+                  <span className="text-zinc-400 font-mono">
                     <strong className="text-white">{stage.count}</strong> ({stage.pct})
                   </span>
                 </div>
-                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-2 w-full bg-zinc-900 rounded-full overflow-hidden">
                   <div
                     className={`h-full ${stage.color} rounded-full transition-all duration-700`}
                     style={{ width: stage.pct }}
@@ -191,15 +191,15 @@ export const OverviewTab: React.FC = () => {
         </div>
 
         {/* Top Performing Triggers */}
-        <div className="lg:col-span-5 p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+        <div className="lg:col-span-5 p-5 rounded-2xl bg-[#13151E] border border-zinc-800 space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-sm font-bold text-white">Top Proactive Triggers</h2>
-              <p className="text-xs text-slate-400">Assisted revenue generated per behavior</p>
+              <p className="text-xs text-zinc-400">Assisted revenue generated per behavior</p>
             </div>
             <button
               onClick={() => setActiveTab('interventions')}
-              className="text-xs text-emerald-400 hover:text-emerald-300 font-medium"
+              className="text-xs text-zinc-300 hover:text-white font-medium underline"
             >
               Manage Rules →
             </button>
@@ -209,19 +209,19 @@ export const OverviewTab: React.FC = () => {
             {triggers.slice(0, 3).map(trigger => (
               <div
                 key={trigger.id}
-                className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between"
+                className="p-3 rounded-xl bg-[#0E1017] border border-zinc-800 flex items-center justify-between"
               >
                 <div className="space-y-0.5 max-w-[180px] sm:max-w-none">
                   <div className="text-xs font-semibold text-white truncate">{trigger.name}</div>
-                  <div className="text-[11px] text-slate-400">
+                  <div className="text-[11px] text-zinc-400">
                     {trigger.performance.shown} shown • {trigger.performance.engaged} engaged
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xs font-bold text-emerald-400 font-mono">
+                  <div className="text-xs font-bold text-white font-mono">
                     ₹{(trigger.performance.revenue / 1000).toFixed(1)}k
                   </div>
-                  <div className="text-[10px] text-slate-500 font-medium">
+                  <div className="text-[10px] text-zinc-400 font-medium">
                     {trigger.performance.conversions} orders
                   </div>
                 </div>
@@ -232,15 +232,15 @@ export const OverviewTab: React.FC = () => {
       </div>
 
       {/* Live Activity Stream Preview */}
-      <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+      <div className="p-5 rounded-2xl bg-[#13151E] border border-zinc-800 space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="h-2 w-2 rounded-full bg-zinc-400 animate-pulse"></span>
             <h2 className="text-sm font-bold text-white">Live Visitor Intent & Interaction Log</h2>
           </div>
           <button
             onClick={() => setActiveTab('visitors')}
-            className="text-xs text-emerald-400 hover:text-emerald-300 font-medium"
+            className="text-xs text-zinc-300 hover:text-white font-medium"
           >
             View All Live Visitors ({visitors.length}) →
           </button>
@@ -250,36 +250,28 @@ export const OverviewTab: React.FC = () => {
           {visitors.slice(0, 4).map(v => (
             <div
               key={v.id}
-              className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-start justify-between space-x-3"
+              className="p-3 rounded-xl bg-[#0E1017] border border-zinc-800 flex items-start justify-between space-x-3"
             >
               <div className="space-y-1">
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs font-mono font-semibold text-slate-200">{v.id}</span>
-                  <span className="text-[10px] text-slate-500">({v.ipLocation})</span>
+                  <span className="text-xs font-mono font-semibold text-zinc-200">#{v.id}</span>
+                  <span className="text-[10px] text-zinc-500">({v.ipLocation})</span>
                 </div>
-                <div className="text-[11px] text-slate-400 truncate max-w-[220px]">
+                <div className="text-[11px] text-zinc-400 truncate max-w-[220px]">
                   {v.actions[0]?.details || 'Browsing products'}
                 </div>
                 {v.interventionTriggered && (
-                  <span className="inline-block text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-medium">
+                  <span className="inline-block text-[10px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-200 border border-zinc-700 font-medium">
                     Proactive Intervention: {v.interventionTriggered.type}
                   </span>
                 )}
               </div>
 
               <div className="text-right flex flex-col items-end">
-                <span
-                  className={`text-[11px] font-bold px-2 py-0.5 rounded-full font-mono ${
-                    v.intentScore >= 75
-                      ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                      : v.intentScore >= 50
-                      ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
-                      : 'bg-slate-800 text-slate-400'
-                  }`}
-                >
+                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full font-mono bg-zinc-800 text-zinc-200 border border-zinc-700">
                   {v.intentScore} pts 🔥
                 </span>
-                <span className="text-[10px] text-slate-500 mt-1">{v.lastSeen}</span>
+                <span className="text-[10px] text-zinc-500 mt-1">{v.lastSeen}</span>
               </div>
             </div>
           ))}

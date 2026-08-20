@@ -67,14 +67,14 @@ export const SpecialistTab: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-8 animate-fade-in">
+    <div className="space-y-6 pb-8 animate-fade-in text-white">
       {/* Header */}
       <div>
         <h1 className="text-xl font-bold text-white flex items-center gap-2">
-          <Bot className="h-5 w-5 text-emerald-400" />
+          <Bot className="h-5 w-5 text-zinc-300" />
           AI Specialist Persona & System Studio
         </h1>
-        <p className="text-xs text-slate-400 mt-0.5">
+        <p className="text-xs text-zinc-400 mt-0.5">
           Select pre-engineered sales specialist personas optimized for e-commerce conversion instead of writing raw prompts from scratch.
         </p>
       </div>
@@ -91,8 +91,8 @@ export const SpecialistTab: React.FC = () => {
               onClick={() => updateSpecialist(spec.id)}
               className={`p-5 rounded-2xl border cursor-pointer transition-all ${
                 isSelected
-                  ? 'bg-slate-900 border-emerald-500 shadow-lg shadow-emerald-950/40 ring-1 ring-emerald-500'
-                  : 'bg-slate-950/70 border-slate-800 hover:bg-slate-900/60 hover:border-slate-700'
+                  ? 'bg-[#181B24] border-zinc-500 shadow-lg ring-1 ring-zinc-500'
+                  : 'bg-[#10121A] border-zinc-800 hover:bg-[#151722] hover:border-zinc-700'
               }`}
             >
               <div className="flex items-start justify-between">
@@ -100,32 +100,32 @@ export const SpecialistTab: React.FC = () => {
                   <div
                     className={`p-2.5 rounded-xl border ${
                       isSelected
-                        ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
-                        : 'bg-slate-800 border-slate-700 text-slate-400'
+                        ? 'bg-zinc-800 border-zinc-600 text-white'
+                        : 'bg-zinc-900 border-zinc-800 text-zinc-400'
                     }`}
                   >
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-white">{spec.title}</h3>
-                    <span className="text-[10px] text-emerald-400 font-medium">
+                    <span className="text-[10px] text-zinc-300 font-medium">
                       {isSelected ? '● Currently Active' : 'Click to Activate'}
                     </span>
                   </div>
                 </div>
 
                 {isSelected && (
-                  <CheckCircle className="h-5 w-5 text-emerald-400 shrink-0" />
+                  <CheckCircle className="h-5 w-5 text-white shrink-0" />
                 )}
               </div>
 
-              <p className="text-xs text-slate-400 mt-3 leading-relaxed">{spec.description}</p>
+              <p className="text-xs text-zinc-400 mt-3 leading-relaxed">{spec.description}</p>
 
-              <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5">
+              <div className="mt-4 pt-3 border-t border-zinc-800 flex flex-wrap gap-1.5">
                 {spec.features.map((feat, i) => (
                   <span
                     key={i}
-                    className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800/80 text-slate-300 border border-slate-700/60"
+                    className="text-[10px] px-2 py-0.5 rounded-full bg-zinc-900 text-zinc-300 border border-zinc-800"
                   >
                     {feat}
                   </span>
@@ -137,55 +137,55 @@ export const SpecialistTab: React.FC = () => {
       </div>
 
       {/* Specialist Tuning & Guardrails */}
-      <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-5">
+      <div className="p-6 rounded-2xl bg-[#13151E] border border-zinc-800 space-y-5">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-sm font-bold text-white">Sales Specialist Guardrails & Tone</h2>
-            <p className="text-xs text-slate-400">Enforce response brevity, tone, and brand safety rules</p>
+            <p className="text-xs text-zinc-400">Enforce response brevity, tone, and brand safety rules</p>
           </div>
           {savedSuccess && (
-            <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1 animate-fade-in">
+            <span className="text-xs text-zinc-200 font-semibold flex items-center gap-1 animate-fade-in">
               <CheckCircle className="h-3.5 w-3.5" /> Saved & Deployed to Live Agent
             </span>
           )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div className="font-semibold text-slate-200 flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
+          <div className="p-4 rounded-xl bg-[#0E1017] border border-zinc-800 space-y-2">
+            <div className="font-semibold text-zinc-200 flex items-center gap-1.5">
+              <ShieldCheck className="h-4 w-4 text-zinc-300" />
               Brevity Constraint
             </div>
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-zinc-400 leading-relaxed">
               AI keeps responses under 3 short sentences. No generic robotic greetings ("I am an AI...").
             </p>
-            <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-semibold">
+            <span className="inline-block px-2 py-0.5 rounded bg-zinc-800 text-zinc-200 border border-zinc-700 text-[10px] font-semibold">
               Enforced Active
             </span>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div className="font-semibold text-slate-200 flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
+          <div className="p-4 rounded-xl bg-[#0E1017] border border-zinc-800 space-y-2">
+            <div className="font-semibold text-zinc-200 flex items-center gap-1.5">
+              <ShieldCheck className="h-4 w-4 text-zinc-300" />
               URL & Pricing Integrity
             </div>
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-zinc-400 leading-relaxed">
               AI cannot hallucinate custom URLs or unauthorized discounts. Only authorized campaigns are shared.
             </p>
-            <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-semibold">
+            <span className="inline-block px-2 py-0.5 rounded bg-zinc-800 text-zinc-200 border border-zinc-700 text-[10px] font-semibold">
               Strict Schema Enforced
             </span>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div className="font-semibold text-slate-200 flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
+          <div className="p-4 rounded-xl bg-[#0E1017] border border-zinc-800 space-y-2">
+            <div className="font-semibold text-zinc-200 flex items-center gap-1.5">
+              <ShieldCheck className="h-4 w-4 text-zinc-300" />
               Structured Product Cards
             </div>
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-zinc-400 leading-relaxed">
               Renders interactive product previews with live pricing, review stars, and direct Add-To-Cart buttons.
             </p>
-            <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-semibold">
+            <span className="inline-block px-2 py-0.5 rounded bg-zinc-800 text-zinc-200 border border-zinc-700 text-[10px] font-semibold">
               Dynamic UI Enabled
             </span>
           </div>
@@ -194,7 +194,7 @@ export const SpecialistTab: React.FC = () => {
         <div className="pt-2 flex justify-end">
           <button
             onClick={handleSave}
-            className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all shadow-md shadow-emerald-500/20"
+            className="px-4 py-2 rounded-xl bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-500 text-xs font-bold transition-all shadow-md"
           >
             Apply Guardrails & Settings
           </button>

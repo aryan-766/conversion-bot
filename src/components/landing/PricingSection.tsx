@@ -81,22 +81,22 @@ export const PricingSection: React.FC<{ onSelectPlan: (plan: string) => void }> 
     <div className="space-y-10">
       {/* Title & Billing Switch */}
       <div className="text-center space-y-4 max-w-2xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+        <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-zinc-800 text-zinc-200 border border-zinc-700">
           Transparent Pricing
         </span>
         <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Priced to Deliver <span className="text-emerald-400">10x+ Measurable ROI</span>
+          Priced to Deliver <span className="text-zinc-300">10x+ Measurable ROI</span>
         </h2>
-        <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+        <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
           No hidden fees. Every tier includes our core behavioral intent tracking and conversion lift attribution.
         </p>
 
         {/* Toggle Switch */}
-        <div className="inline-flex items-center p-1 rounded-2xl bg-slate-900 border border-slate-800 shadow-inner">
+        <div className="inline-flex items-center p-1 rounded-2xl bg-[#14161F] border border-zinc-800 shadow-inner">
           <button
             onClick={() => setAnnual(false)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
-              !annual ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              !annual ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-white'
             }`}
           >
             Monthly Billing
@@ -104,11 +104,11 @@ export const PricingSection: React.FC<{ onSelectPlan: (plan: string) => void }> 
           <button
             onClick={() => setAnnual(true)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center space-x-1.5 ${
-              annual ? 'bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20' : 'text-slate-400 hover:text-white'
+              annual ? 'bg-gradient-to-b from-zinc-600 to-zinc-700 text-white font-bold shadow-md border border-zinc-500/40' : 'text-zinc-400 hover:text-white'
             }`}
           >
             <span>Annual Billing</span>
-            <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${annual ? 'bg-slate-950 text-emerald-400' : 'bg-emerald-500/20 text-emerald-300'}`}>
+            <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${annual ? 'bg-zinc-900 text-zinc-200' : 'bg-zinc-800 text-zinc-300'}`}>
               Save 20%
             </span>
           </button>
@@ -122,12 +122,12 @@ export const PricingSection: React.FC<{ onSelectPlan: (plan: string) => void }> 
             key={idx}
             className={`rounded-3xl p-6 flex flex-col justify-between transition-all relative ${
               plan.highlight
-                ? 'bg-slate-900 border-2 border-emerald-500 shadow-2xl shadow-emerald-950/40 ring-2 ring-emerald-500/30'
-                : 'bg-[#0E1420] border border-slate-800 hover:border-slate-700'
+                ? 'bg-[#151722] border-2 border-zinc-500 shadow-2xl shadow-black/60 ring-1 ring-zinc-400/30'
+                : 'bg-[#10121A] border border-zinc-800/90 hover:border-zinc-700'
             }`}
           >
             {plan.badge && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-emerald-500 text-slate-950 shadow-md">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-gradient-to-r from-zinc-600 to-zinc-700 text-white border border-zinc-500 shadow-md">
                 {plan.badge}
               </span>
             )}
@@ -135,35 +135,35 @@ export const PricingSection: React.FC<{ onSelectPlan: (plan: string) => void }> 
             <div className="space-y-4">
               <div>
                 <h3 className="text-base font-bold text-white">{plan.name}</h3>
-                <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
                   {plan.description}
                 </p>
               </div>
 
               {/* Price Display */}
-              <div className="py-2 border-y border-slate-800/80">
+              <div className="py-2 border-y border-zinc-800">
                 <div className="flex items-baseline space-x-1.5">
                   <span className="text-3xl font-extrabold text-white font-mono">
                     ₹{annual ? plan.priceAnnual.toLocaleString() : plan.priceMonthly.toLocaleString()}
                   </span>
-                  <span className="text-xs text-slate-400 font-medium">/ month</span>
+                  <span className="text-xs text-zinc-400 font-medium">/ month</span>
                 </div>
                 {annual && plan.priceAnnual > 0 && (
-                  <span className="text-[10px] text-emerald-400 font-semibold mt-0.5 block">
+                  <span className="text-[10px] text-zinc-300 font-semibold mt-0.5 block">
                     Billed annually (₹{(plan.priceAnnual * 12).toLocaleString()} / yr)
                   </span>
                 )}
               </div>
 
               {/* Feature List */}
-              <div className="space-y-2.5 text-xs text-slate-300">
-                <span className="text-[11px] uppercase font-bold text-slate-500 tracking-wider">
+              <div className="space-y-2.5 text-xs text-zinc-300">
+                <span className="text-[11px] uppercase font-bold text-zinc-500 tracking-wider">
                   Included Capabilities:
                 </span>
                 {plan.features.map((feat, i) => (
                   <div key={i} className="flex items-start space-x-2">
-                    <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span className="text-slate-300 leading-tight">{feat}</span>
+                    <Check className="h-4 w-4 text-zinc-300 shrink-0 mt-0.5" />
+                    <span className="text-zinc-300 leading-tight">{feat}</span>
                   </div>
                 ))}
               </div>
@@ -175,8 +175,8 @@ export const PricingSection: React.FC<{ onSelectPlan: (plan: string) => void }> 
                 onClick={() => onSelectPlan(plan.name)}
                 className={`w-full py-3 rounded-2xl text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-1.5 transition-all shadow-md ${
                   plan.highlight
-                    ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-emerald-500/20 hover:scale-[1.02]'
-                    : 'bg-slate-800 hover:bg-slate-700 text-white'
+                    ? 'bg-gradient-to-b from-zinc-600 to-zinc-700 hover:from-zinc-500 hover:to-zinc-600 text-white border border-zinc-400 shadow-lg shadow-black/40 hover:scale-[1.02]'
+                    : 'bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700'
                 }`}
               >
                 <span>{plan.cta}</span>

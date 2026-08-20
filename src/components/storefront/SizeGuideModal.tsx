@@ -13,24 +13,24 @@ export const SizeGuideModal: React.FC<{ onClose: () => void }> = ({ onClose }) =
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+      <div className="bg-[#13151E] border border-zinc-700 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative text-white">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-full bg-slate-800 text-slate-400 hover:text-white"
+          className="absolute top-4 right-4 p-1.5 rounded-full bg-zinc-800 text-zinc-400 hover:text-white"
         >
           <X className="h-4 w-4" />
         </button>
 
         <div>
           <h2 className="text-base font-bold text-white">Footwear Sizing & Metric Guide</h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-zinc-400 mt-0.5">
             AuraFit shoes fit true to standard athletic sizing.
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-slate-800">
+        <div className="overflow-hidden rounded-xl border border-zinc-800">
           <table className="w-full text-xs text-left">
-            <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+            <thead className="bg-[#0E1017] text-zinc-400 font-semibold border-b border-zinc-800">
               <tr>
                 <th className="p-2.5">UK / India</th>
                 <th className="p-2.5">US</th>
@@ -38,25 +38,25 @@ export const SizeGuideModal: React.FC<{ onClose: () => void }> = ({ onClose }) =
                 <th className="p-2.5">Length (cm)</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800 text-slate-200 font-mono">
+            <tbody className="divide-y divide-zinc-800 text-zinc-200 font-mono">
               {sizeChart.map((row, i) => (
-                <tr key={i} className="hover:bg-slate-800/40">
-                  <td className="p-2.5 font-bold text-emerald-400">{row.uk}</td>
+                <tr key={i} className="hover:bg-zinc-800/40">
+                  <td className="p-2.5 font-bold text-white">{row.uk}</td>
                   <td className="p-2.5">{row.us}</td>
                   <td className="p-2.5">{row.eu}</td>
-                  <td className="p-2.5 text-slate-400">{row.cm}</td>
+                  <td className="p-2.5 text-zinc-400">{row.cm}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-        <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/20 text-xs text-emerald-300 space-y-1">
-          <div className="font-semibold flex items-center gap-1">
-            <Check className="h-3.5 w-3.5 text-emerald-400" />
+        <div className="p-3 rounded-xl bg-[#0E1017] border border-zinc-700 text-xs text-zinc-200 space-y-1">
+          <div className="font-semibold flex items-center gap-1 text-white">
+            <Check className="h-3.5 w-3.5 text-zinc-300" />
             100% Free Doorstep Size Exchange
           </div>
-          <p className="text-[11px] text-slate-300">
+          <p className="text-[11px] text-zinc-400">
             If the fit isn't 100% perfect, our courier picks it up and exchanges the size for free within 48 hours!
           </p>
         </div>
