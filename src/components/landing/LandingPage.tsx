@@ -26,6 +26,7 @@ import { RoiCalculator } from './RoiCalculator';
 import { PricingSection } from './PricingSection';
 import { AuthModal } from '../auth/AuthModal';
 import { ConvoraIcon } from '../common/ConvoraLogo';
+import { GradientDots } from '@/components/ui/gradient-dots';
 
 export const LandingPage: React.FC = () => {
   const { setViewMode, setActiveTab } = useApp();
@@ -88,7 +89,7 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0D0E12] text-white flex flex-col font-sans selection:bg-zinc-700 selection:text-white relative">
+    <div className="min-h-screen bg-[#0D0E12] text-white flex flex-col font-sans selection:bg-zinc-700 selection:text-white relative overflow-hidden">
       {/* Flowy Floating Unattached SaaS Landing Navbar */}
       <div className="sticky top-4 z-40 px-4 sm:px-8 w-full max-w-7xl mx-auto pointer-events-none transition-all duration-300">
         <nav className="pointer-events-auto h-16 sm:h-18 rounded-2xl sm:rounded-full border border-zinc-700/80 bg-[#12141C]/85 backdrop-blur-xl px-4 sm:px-7 flex items-center justify-between shadow-2xl shadow-black/60 ring-1 ring-white/10">
@@ -147,12 +148,17 @@ export const LandingPage: React.FC = () => {
       </div>
 
       {/* Main Landing Page Flow */}
-      <main className="flex-1 space-y-24 pb-20 pt-4">
-        {/* HERO SECTION */}
-        <section className="relative pt-6 sm:pt-12 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
-          <div className="text-center space-y-5 max-w-3xl mx-auto">
+      <main className="flex-1 space-y-24 pb-20 pt-4 relative">
+        {/* HERO SECTION WITH ANIMATED GRADIENT DOTS BACKGROUND */}
+        <section className="relative pt-6 sm:pt-12 px-4 sm:px-8 max-w-7xl mx-auto">
+          {/* Ambient Gradient Dots Layer */}
+          <div className="absolute inset-0 -top-12 h-[680px] overflow-hidden pointer-events-none opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]">
+            <GradientDots duration={25} dotSize={6} spacing={12} backgroundColor="#0D0E12" />
+          </div>
+
+          <div className="text-center space-y-5 max-w-3xl mx-auto relative z-10">
             {/* Pill Badge */}
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold shadow-sm">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-800/90 backdrop-blur-md border border-zinc-700 text-zinc-200 text-xs font-semibold shadow-sm">
               <ConvoraIcon className="h-4 w-4" />
               <span>Convora AI — Turn Website Visitors into Buyers with AI Sales Intelligence</span>
             </div>
@@ -205,7 +211,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           {/* Interactive Hero Chat & Live Preview */}
-          <div className="mt-12 max-w-4xl mx-auto rounded-3xl bg-[#13151E] border border-zinc-700/80 p-4 sm:p-6 shadow-2xl space-y-4">
+          <div className="mt-12 max-w-4xl mx-auto rounded-3xl bg-[#13151E]/95 backdrop-blur-xl border border-zinc-700/80 p-4 sm:p-6 shadow-2xl space-y-4 relative z-10">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-800 text-xs">
               <div className="flex items-center space-x-2">
                 <div className="flex space-x-1.5">
