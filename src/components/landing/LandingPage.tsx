@@ -1,0 +1,561 @@
+import React, { useState } from 'react';
+import { useApp } from '../../context/AppContext';
+import {
+  Sparkles,
+  Zap,
+  Bot,
+  ArrowRight,
+  CheckCircle,
+  Play,
+  Flame,
+  Globe,
+  Database,
+  Split,
+  TrendingUp,
+  ShieldCheck,
+  Star,
+  Users,
+  ShoppingBag,
+  Cpu,
+  HelpCircle,
+  ChevronDown,
+  Layers,
+  Code
+} from 'lucide-react';
+import { RoiCalculator } from './RoiCalculator';
+import { PricingSection } from './PricingSection';
+import { AuthModal } from '../auth/AuthModal';
+
+export const LandingPage: React.FC = () => {
+  const { setViewMode, setActiveTab } = useApp();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
+  const [heroInput, setHeroInput] = useState('');
+  const [heroChatFeed, setHeroChatFeed] = useState<Array<{ sender: 'user' | 'bot'; text: string }>>([
+    {
+      sender: 'bot',
+      text: "👋 Hey there! I'm trained on your store's products and policies. Ask me anything or see how I recommend running shoes!"
+    }
+  ]);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const handleHeroChat = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!heroInput.trim()) return;
+
+    const userText = heroInput;
+    setHeroInput('');
+    setHeroChatFeed(prev => [...prev, { sender: 'user', text: userText }]);
+
+    setTimeout(() => {
+      let botReply = "Our Aura CloudStrider Pro Max is rated 4.8★ with nitrogen bounce foam! Plus, you get our 7-Day Zero-Risk Doorstep Exchange guarantee. Want me to apply discount code SAVE10 for you?";
+      if (userText.toLowerCase().includes('return') || userText.toLowerCase().includes('policy')) {
+        botReply = "We offer a 100% Zero-Risk 7-Day Doorstep Pickup Exchange & Return guarantee. If the fit isn't right, our courier picks it up directly with instant refund!";
+      } else if (userText.toLowerCase().includes('size') || userText.toLowerCase().includes('fit')) {
+        botReply = "All our running shoes fit true-to-size! If you have wider feet, we suggest taking half a size up for maximum marathon toe-box comfort.";
+      }
+      setHeroChatFeed(prev => [...prev, { sender: 'bot', text: botReply }]);
+    }, 400);
+  };
+
+  const handleOpenAuth = (mode: 'signin' | 'signup') => {
+    setAuthMode(mode);
+    setShowAuthModal(true);
+  };
+
+  const faqs = [
+    {
+      q: 'How does this differ from standard chatbot tools like Intercom or Chatbase?',
+      a: 'Generic chatbots wait passively for a visitor to click a bubble and ask generic FAQs. Our AI Conversion Agent watches real-time behavioral signals (PDP dwell time, size guide opens, comparison between products, exit intent cursor acceleration) and proactively steps in at high-friction buying moments with structured product recommendations and verified revenue attribution.'
+    },
+    {
+      q: 'Does it require coding knowledge to install on my website?',
+      a: 'Zero coding is required. You simply paste a single lightweight asynchronous <script> tag (<48KB) right before your </body> tag on Shopify, WooCommerce, Webflow, WordPress, or custom React/HTML stores.'
+    },
+    {
+      q: 'Can the AI hallucinate unauthorized discounts or fake products?',
+      a: 'No. Our strict schema guardrails and model router enforce structured catalog retrieval. The AI only communicates authorized campaign codes (like SAVE10) when your specified cart and intent thresholds are met.'
+    },
+    {
+      q: 'How do you measure incremental revenue lift scientifically?',
+      a: 'We built a built-in A/B experimentation engine. Traffic is split 50/50 between a control group (no proactive AI) and the AI Conversion Agent variant. We calculate conversion rate lift, average order value (AOV), and incremental dollars with statistical confidence.'
+    },
+    {
+      q: 'What happens when a visitor asks a question not in the knowledge base?',
+      a: 'Our Autonomous Knowledge Gap Engine flags the unresolved question, aggregates asking frequency, and pre-generates a brand-tailored answer on your merchant dashboard for 1-click approval and instant vectorization.'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#070A0F] text-slate-100 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-300">
+      {/* Sticky SaaS Navbar */}
+      <nav className="h-20 border-b border-slate-800/80 bg-[#0B0F17]/90 backdrop-blur-xl px-4 sm:px-8 flex items-center justify-between sticky top-0 z-40">
+        <div className="flex items-center space-x-3">
+          <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-400 flex items-center justify-center text-slate-950 font-extrabold shadow-lg shadow-emerald-500/20">
+            <Zap className="h-6 w-6" />
+          </div>
+          <div>
+            <span className="font-extrabold text-lg tracking-tight text-white flex items-center gap-1">
+              MagicChat<span className="text-emerald-400">.ai</span>
+            </span>
+            <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400 block -mt-1">
+              Autonomous AI Sales Layer
+            </span>
+          </div>
+        </div>
+
+        {/* Links */}
+        <div className="hidden md:flex items-center space-x-8 text-xs font-semibold text-slate-300">
+          <a href="#features" className="hover:text-emerald-400 transition-colors">Features</a>
+          <a href="#how-it-works" className="hover:text-emerald-400 transition-colors">How It Works</a>
+          <a href="#roi-calculator" className="hover:text-emerald-400 transition-colors">ROI Calculator</a>
+          <button
+            onClick={() => {
+              setViewMode('playground');
+            }}
+            className="hover:text-emerald-400 transition-colors flex items-center gap-1 text-cyan-400"
+          >
+            <Cpu className="h-3.5 w-3.5" />
+            <span>AI Playground</span>
+          </button>
+          <a href="#pricing" className="hover:text-emerald-400 transition-colors">Pricing</a>
+          <a href="#faq" className="hover:text-emerald-400 transition-colors">FAQ</a>
+        </div>
+
+        {/* CTA Actions */}
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => handleOpenAuth('signin')}
+            className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-semibold border border-slate-800 transition-all"
+          >
+            Sign In
+          </button>
+          <button
+            onClick={() => setViewMode('split')}
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 text-xs font-bold shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 flex items-center space-x-1.5"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Launch Live App</span>
+          </button>
+        </div>
+      </nav>
+
+      {/* Main Landing Page Flow */}
+      <main className="flex-1 space-y-24 pb-20">
+        {/* HERO SECTION */}
+        <section className="relative pt-12 sm:pt-20 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
+          <div className="text-center space-y-5 max-w-3xl mx-auto">
+            {/* Pill Badge */}
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>Turn Website Visitors into Buyers with AI Sales Intelligence</span>
+            </div>
+
+            {/* Main Headline */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+              Build Custom AI Sales Agents Trained on Your Data in{' '}
+              <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+                60 Seconds
+              </span>
+            </h1>
+
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
+              Watches visitor intent in real-time, proactively steps in during sizing or cart hesitation, recommends structured product cards, and measures verified incremental revenue lift.
+            </p>
+
+            {/* CTAs */}
+            <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
+              <button
+                onClick={() => setViewMode('split')}
+                className="px-6 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs sm:text-sm font-bold uppercase tracking-wider shadow-xl shadow-emerald-500/30 transition-all hover:scale-105 flex items-center space-x-2"
+              >
+                <span>Try Live D2C Store Simulation</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+
+              <button
+                onClick={() => setViewMode('playground')}
+                className="px-5 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs sm:text-sm font-semibold border border-slate-800 transition-all flex items-center space-x-2"
+              >
+                <Cpu className="h-4 w-4 text-cyan-400" />
+                <span>Open Model Playground</span>
+              </button>
+            </div>
+
+            <div className="flex items-center justify-center space-x-6 text-[11px] text-slate-400 pt-2">
+              <span className="flex items-center gap-1">
+                <CheckCircle className="h-3.5 w-3.5 text-emerald-400" />
+                No Credit Card Required
+              </span>
+              <span className="flex items-center gap-1">
+                <CheckCircle className="h-3.5 w-3.5 text-emerald-400" />
+                1-Minute Embed Script
+              </span>
+              <span className="flex items-center gap-1">
+                <CheckCircle className="h-3.5 w-3.5 text-emerald-400" />
+                Proven +22.2% CVR Lift
+              </span>
+            </div>
+          </div>
+
+          {/* Interactive Hero Chat & Live Preview */}
+          <div className="mt-12 max-w-4xl mx-auto rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 p-4 sm:p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
+              <div className="flex items-center space-x-2">
+                <div className="flex space-x-1.5">
+                  <div className="h-3 w-3 rounded-full bg-rose-500/80"></div>
+                  <div className="h-3 w-3 rounded-full bg-amber-500/80"></div>
+                  <div className="h-3 w-3 rounded-full bg-emerald-500/80"></div>
+                </div>
+                <span className="text-slate-400 font-mono pl-2">https://aurafit-luxe.in (Live AI Sales Layer Active)</span>
+              </div>
+              <span className="text-emerald-400 font-bold flex items-center gap-1 font-mono">
+                <Flame className="h-3.5 w-3.5" /> 88 pts (Hot Intent)
+              </span>
+            </div>
+
+            {/* Interactive Chat Stream Inside Hero */}
+            <div className="space-y-3 max-h-64 overflow-y-auto pr-1 text-xs">
+              {heroChatFeed.map((m, idx) => (
+                <div
+                  key={idx}
+                  className={`flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`p-3.5 rounded-2xl max-w-md leading-relaxed ${
+                      m.sender === 'user'
+                        ? 'bg-emerald-500 text-slate-950 font-medium'
+                        : 'bg-slate-900 border border-slate-800 text-slate-200'
+                    }`}
+                  >
+                    {m.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Chat Input Inside Hero */}
+            <form onSubmit={handleHeroChat} className="flex items-center space-x-2 pt-2 border-t border-slate-800">
+              <input
+                type="text"
+                placeholder="Try asking: 'Recommend marathon shoes under ₹3000' or 'What is your return policy?'"
+                value={heroInput}
+                onChange={e => setHeroInput(e.target.value)}
+                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-md shadow-emerald-500/20"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </section>
+
+        {/* LOGOS / PLATFORMS BAR */}
+        <section className="px-4 sm:px-8 max-w-6xl mx-auto text-center space-y-4">
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            Integrates in 1-Click with Your Entire E-Commerce Stack
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 opacity-70 grayscale hover:grayscale-0 transition-all">
+            {['Shopify', 'WooCommerce', 'Webflow', 'Next.js', 'WordPress', 'Stripe', 'Google Analytics'].map(logo => (
+              <span key={logo} className="text-sm font-bold tracking-tight text-slate-400">
+                {logo}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* 4 CORE VALUE PILLARS */}
+        <section id="features" className="px-4 sm:px-8 max-w-7xl mx-auto space-y-12">
+          <div className="text-center space-y-3 max-w-2xl mx-auto">
+            <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              Complete Sales Engine
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+              More than a Chatbot. A 24/7 Revenue Engine.
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400">
+              The 4 foundational layers that convert cold visitors into repeat brand advocates.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-6 rounded-3xl bg-[#0E1420] border border-slate-800 space-y-3 hover:border-emerald-500/40 transition-all group">
+              <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 w-fit">
+                <Database className="h-6 w-6" />
+              </div>
+              <h3 className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
+                1. Knowledge & Sync Engine
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Autonomous crawler indexes your sitemap, products, shipping policies, and FAQs in 60s with continuous auto-sync.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-[#0E1420] border border-slate-800 space-y-3 hover:border-emerald-500/40 transition-all group">
+              <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 w-fit">
+                <Flame className="h-6 w-6" />
+              </div>
+              <h3 className="text-base font-bold text-white group-hover:text-amber-400 transition-colors">
+                2. Real-Time Intent Engine
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Scores visitor intent (0-100 pts) across dwell time, size guide opens, reviews inspected, and comparison patterns.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-[#0E1420] border border-slate-800 space-y-3 hover:border-emerald-500/40 transition-all group">
+              <div className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 w-fit">
+                <Zap className="h-6 w-6" />
+              </div>
+              <h3 className="text-base font-bold text-white group-hover:text-cyan-400 transition-colors">
+                3. Proactive Trigger Engine
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Silently observes until friction happens (cart abandonment, fit hesitation), then steps in with contextual guidance.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-[#0E1420] border border-slate-800 space-y-3 hover:border-emerald-500/40 transition-all group">
+              <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 w-fit">
+                <Split className="h-6 w-6" />
+              </div>
+              <h3 className="text-base font-bold text-white group-hover:text-purple-400 transition-colors">
+                4. A/B Attribution & ROI
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Isolates experimental lift against pure control baselines so you can prove real incremental sales dollars to stakeholders.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* INTERACTIVE ROI CALCULATOR */}
+        <section id="roi-calculator" className="px-4 sm:px-8 max-w-7xl mx-auto">
+          <RoiCalculator />
+        </section>
+
+        {/* MODEL PLAYGROUND TEASER */}
+        <section className="px-4 sm:px-8 max-w-7xl mx-auto">
+          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-950 border border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+            <div className="space-y-3 max-w-xl">
+              <span className="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <Cpu className="h-4 w-4" /> Live AI Model Studio
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Inspect RAG Chunks & Test Model Latency in Real-Time
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Test GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, and DeepSeek against your catalog. Inspect cosine similarity % and token costs per interaction.
+              </p>
+              <button
+                onClick={() => setViewMode('playground')}
+                className="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center space-x-1.5 shadow-lg shadow-cyan-500/20 transition-all hover:scale-105"
+              >
+                <span>Launch Playground Studio</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 font-mono text-xs space-y-2 w-full md:w-80">
+              <div className="text-slate-400 text-[11px] flex justify-between">
+                <span>Model: GPT-4o Router</span>
+                <span className="text-emerald-400">Online</span>
+              </div>
+              <div className="p-2 rounded-lg bg-slate-900 text-slate-300 text-[11px]">
+                Cosine Sim: <strong className="text-emerald-400">96.4%</strong> (Policy v3.2)
+              </div>
+              <div className="p-2 rounded-lg bg-slate-900 text-slate-300 text-[11px]">
+                Latency: <strong className="text-cyan-400">218ms</strong> • Cost: <strong className="text-white">$0.0004</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PRICING SECTION */}
+        <section id="pricing" className="px-4 sm:px-8 max-w-7xl mx-auto">
+          <PricingSection
+            onSelectPlan={planName => {
+              handleOpenAuth('signup');
+            }}
+          />
+        </section>
+
+        {/* TESTIMONIALS / WALL OF LOVE */}
+        <section className="px-4 sm:px-8 max-w-7xl mx-auto space-y-8">
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              Wall of Love
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+              Trusted by High-Growth D2C & SaaS Brands
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-3xl bg-[#0E1420] border border-slate-800 space-y-4">
+              <div className="flex items-center space-x-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed italic">
+                "Our footwear store had a 68% cart abandonment rate due to sizing doubts. Within 7 days of installing this AI sales agent, our conversion rate jumped from 2.4% to 3.1%."
+              </p>
+              <div className="pt-2 border-t border-slate-800/80 flex items-center space-x-3">
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+                  alt="Founder"
+                  className="h-9 w-9 rounded-full object-cover"
+                />
+                <div>
+                  <div className="text-xs font-bold text-white">Rhea Sengupta</div>
+                  <div className="text-[10px] text-slate-400">Founder, KineticKicks D2C</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-[#0E1420] border border-slate-800 space-y-4">
+              <div className="flex items-center space-x-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed italic">
+                "The A/B testing suite is game changing. We proved ₹3.8 Lakhs in incremental revenue in month one. It literally pays for itself in the first 48 hours."
+              </p>
+              <div className="pt-2 border-t border-slate-800/80 flex items-center space-x-3">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
+                  alt="Founder"
+                  className="h-9 w-9 rounded-full object-cover"
+                />
+                <div>
+                  <div className="text-xs font-bold text-white">Aditya Verma</div>
+                  <div className="text-[10px] text-slate-400">Head of Growth, UrbanWear</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-[#0E1420] border border-slate-800 space-y-4">
+              <div className="flex items-center space-x-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed italic">
+                "The Knowledge Gap detector flagged 40+ people asking for Dubai shipping. We added the answer in 1 click and captured 18 international orders the same week!"
+              </p>
+              <div className="pt-2 border-t border-slate-800/80 flex items-center space-x-3">
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80"
+                  alt="Founder"
+                  className="h-9 w-9 rounded-full object-cover"
+                />
+                <div>
+                  <div className="text-xs font-bold text-white">Ananya Joshi</div>
+                  <div className="text-[10px] text-slate-400">E-Commerce Director, Lumina Apparel</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ SECTION */}
+        <section id="faq" className="px-4 sm:px-8 max-w-4xl mx-auto space-y-6">
+          <div className="text-center space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              Got Questions?
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Frequently Asked Questions</h2>
+          </div>
+
+          <div className="space-y-3">
+            {faqs.map((faq, idx) => (
+              <div
+                key={idx}
+                className="p-5 rounded-2xl bg-[#0E1420] border border-slate-800 cursor-pointer transition-all"
+                onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-white">{faq.q}</h3>
+                  <ChevronDown
+                    className={`h-4 w-4 text-slate-400 transition-transform ${openFaq === idx ? 'rotate-180 text-emerald-400' : ''}`}
+                  />
+                </div>
+                {openFaq === idx && (
+                  <p className="text-xs text-slate-400 mt-3 leading-relaxed pt-3 border-t border-slate-800/80">
+                    {faq.a}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* BOTTOM CTA BANNER */}
+        <section className="px-4 sm:px-8 max-w-7xl mx-auto">
+          <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-teal-950/50 border border-emerald-500/40 text-center space-y-5 shadow-2xl relative overflow-hidden">
+            <div className="space-y-2 max-w-2xl mx-auto">
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Ready to Turn More Visitors into Paying Customers?
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Connect your store in 60 seconds. Start your 14-day risk-free trial and watch your conversion lift in real-time.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <button
+                onClick={() => setViewMode('split')}
+                className="px-7 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs sm:text-sm font-bold uppercase tracking-wider shadow-xl shadow-emerald-500/30 transition-all hover:scale-105"
+              >
+                Launch Live Storefront Sandbox →
+              </button>
+              <button
+                onClick={() => handleOpenAuth('signup')}
+                className="px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold border border-slate-700 transition-all"
+              >
+                Sign Up with Email
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Modern Footer */}
+      <footer className="border-t border-slate-800/80 bg-[#0B0F17] py-10 px-4 sm:px-8 text-xs text-slate-400">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center space-x-2">
+            <div className="h-6 w-6 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-bold">
+              <Zap className="h-3.5 w-3.5" />
+            </div>
+            <span className="font-bold text-white">MagicChat.ai — AI Sales Layer for E-Commerce</span>
+          </div>
+
+          <div className="flex items-center space-x-6">
+            <button onClick={() => setViewMode('playground')} className="hover:text-white">Playground Studio</button>
+            <button onClick={() => setViewMode('dashboard')} className="hover:text-white">Dashboard</button>
+            <button onClick={() => setViewMode('storefront')} className="hover:text-white">Store Demo</button>
+            <a href="#privacy" className="hover:text-white">Privacy</a>
+            <a href="#terms" className="hover:text-white">Terms</a>
+          </div>
+
+          <div className="text-slate-500 text-[11px]">
+            © 2026 MagicChat.ai Inc. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+      {showAuthModal && (
+        <AuthModal
+          isOpen={showAuthModal}
+          initialMode={authMode}
+          onClose={() => setShowAuthModal(false)}
+        />
+      )}
+    </div>
+  );
+};
