@@ -18,7 +18,7 @@ import { StorefrontDemo } from './components/storefront/StorefrontDemo';
 const MainLayout: React.FC = () => {
   const { viewMode, activeTab } = useApp();
 
-  // If in Landing page mode: render complete MagicChat.ai SaaS landing page
+  // 1. Landing Page View: Has its own dedicated SaaS Marketing Navbar
   if (viewMode === 'landing') {
     return <LandingPage />;
   }
@@ -48,14 +48,16 @@ const MainLayout: React.FC = () => {
     }
   };
 
+  // 2. App Views (Playground, Dashboard, Split, Storefront): Use the App Control Navbar
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B0F17] text-slate-100">
+    <div className="min-h-screen flex flex-col bg-[#0D0E12] text-white">
+      {/* App Merchant & Playground Control Navbar */}
       <Navbar />
 
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden pt-2">
         {/* Playground Studio Full View */}
         {viewMode === 'playground' && (
-          <main className="flex-1 overflow-y-auto p-6 sm:p-8 bg-[#0B0F17] h-[calc(100vh-64px)]">
+          <main className="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#0D0E12] h-[calc(100vh-84px)]">
             <div className="max-w-7xl mx-auto">
               <PlaygroundTab />
             </div>
@@ -64,17 +66,17 @@ const MainLayout: React.FC = () => {
 
         {/* Split Screen Mode: Dashboard on left, Live D2C Store on right */}
         {viewMode === 'split' && (
-          <div className="flex-1 flex flex-col lg:flex-row h-[calc(100vh-64px)] overflow-hidden">
+          <div className="flex-1 flex flex-col lg:flex-row h-[calc(100vh-84px)] overflow-hidden">
             {/* Left Half: Merchant Control Dashboard */}
-            <div className="flex-1 flex overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800">
+            <div className="flex-1 flex overflow-hidden border-b lg:border-b-0 lg:border-r border-zinc-800">
               <Sidebar />
-              <main className="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#0B0F17]">
+              <main className="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#0D0E12]">
                 {renderDashboardTab()}
               </main>
             </div>
 
             {/* Right Half: Live Storefront Demo */}
-            <div className="flex-1 flex flex-col overflow-y-auto bg-[#070A0F] border-t lg:border-t-0 border-slate-800">
+            <div className="flex-1 flex flex-col overflow-y-auto bg-[#0A0B10] border-t lg:border-t-0 border-zinc-800">
               <StorefrontDemo />
             </div>
           </div>
@@ -82,9 +84,9 @@ const MainLayout: React.FC = () => {
 
         {/* Dashboard Only Mode */}
         {viewMode === 'dashboard' && (
-          <div className="flex-1 flex h-[calc(100vh-64px)] overflow-hidden">
+          <div className="flex-1 flex h-[calc(100vh-84px)] overflow-hidden">
             <Sidebar />
-            <main className="flex-1 overflow-y-auto p-6 sm:p-8 bg-[#0B0F17]">
+            <main className="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#0D0E12]">
               <div className="max-w-7xl mx-auto">
                 {renderDashboardTab()}
               </div>
@@ -94,7 +96,7 @@ const MainLayout: React.FC = () => {
 
         {/* Storefront Demo Mode */}
         {viewMode === 'storefront' && (
-          <div className="flex-1 flex flex-col overflow-y-auto bg-[#070A0F] h-[calc(100vh-64px)]">
+          <div className="flex-1 flex flex-col overflow-y-auto bg-[#0A0B10] h-[calc(100vh-84px)]">
             <StorefrontDemo />
           </div>
         )}

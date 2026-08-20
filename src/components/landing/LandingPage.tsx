@@ -25,7 +25,7 @@ import {
 import { RoiCalculator } from './RoiCalculator';
 import { PricingSection } from './PricingSection';
 import { AuthModal } from '../auth/AuthModal';
-import { ConvoraIcon, ConvoraLogo } from '../common/ConvoraLogo';
+import { ConvoraIcon } from '../common/ConvoraLogo';
 
 export const LandingPage: React.FC = () => {
   const { setViewMode, setActiveTab } = useApp();
@@ -88,8 +88,8 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0D0E12] text-white flex flex-col font-sans selection:bg-zinc-700 selection:text-white">
-      {/* Floating Flowy Unattached Navbar */}
+    <div className="min-h-screen bg-[#0D0E12] text-white flex flex-col font-sans selection:bg-zinc-700 selection:text-white relative">
+      {/* Flowy Floating Unattached SaaS Landing Navbar */}
       <div className="sticky top-4 z-40 px-4 sm:px-8 w-full max-w-7xl mx-auto pointer-events-none transition-all duration-300">
         <nav className="pointer-events-auto h-16 sm:h-18 rounded-2xl sm:rounded-full border border-zinc-700/80 bg-[#12141C]/85 backdrop-blur-xl px-4 sm:px-7 flex items-center justify-between shadow-2xl shadow-black/60 ring-1 ring-white/10">
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
@@ -104,7 +104,7 @@ export const LandingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Links */}
+          {/* Marketing Navigation Links */}
           <div className="hidden md:flex items-center space-x-7 text-xs font-semibold text-zinc-300">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a>
@@ -147,9 +147,9 @@ export const LandingPage: React.FC = () => {
       </div>
 
       {/* Main Landing Page Flow */}
-      <main className="flex-1 space-y-24 pb-20 pt-6">
+      <main className="flex-1 space-y-24 pb-20 pt-4">
         {/* HERO SECTION */}
-        <section className="relative pt-8 sm:pt-16 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
+        <section className="relative pt-6 sm:pt-12 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
           <div className="text-center space-y-5 max-w-3xl mx-auto">
             {/* Pill Badge */}
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs font-semibold shadow-sm">
