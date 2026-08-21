@@ -1,12 +1,14 @@
-import { Visitor, TriggerRule, Campaign } from '../types';
+import { Visitor, TriggerRule, Campaign, TriggerActionType } from '../types';
 
 export interface TriggerEvaluationResult {
   shouldIntervene: boolean;
   rule?: TriggerRule;
   reason?: string;
+  actionType?: TriggerActionType;
   customMessage?: string;
   quickReplies?: string[];
   couponOffer?: Campaign;
+  attachedCoupon?: string;
 }
 
 export class TriggerEngine {
@@ -18,17 +20,20 @@ export class TriggerEngine {
     campaigns: Campaign[] = []
   ): TriggerEvaluationResult {
     // Check if an intervention is already actively shown or engaged in this session
-    if (visitor.interventionTriggered && visitor.interventionTriggered.status === 'engaged') {
+    if (visitor.interventionTriggered && visitor.interventionTriggered.status === 'clicked') {
       return { shouldIntervene: false, reason: 'Visitor already engaged in conversation' };
     }
 
-    const enabledRules = rules.filter(r => r.enabled);
+    const enabledRules = [...rules]
+      .filter(r => r.enabled)
+      .sort((a, b) => a.priority - b.priority);
+
     const now = Date.now();
 
     for (const rule of enabledRules) {
       // 1. Check Cooldown
       const lastTriggered = this.lastTriggerTimes[rule.id] || 0;
-      const cooldownMs = (rule.cooldownMinutes || 10) * 60 * 1000;
+      const cooldownMs = (rule.cooldownMinutes || 8) * 60 * 1000;
       if (now - lastTriggered < cooldownMs) {
         continue;
       }
@@ -38,26 +43,17 @@ export class TriggerEngine {
       let matched = true;
 
       // Min Intent Score
-      if (cond.minIntentScore && visitor.intentScore < cond.minIntentScore) {
+      if (cond.minIntentScore !== undefined && visitor.intentScore < cond.minIntentScore) {
         matched = false;
       }
 
-      // Page Type match
-      if (cond.pageType) {
-        if (cond.pageType === 'product' && !visitor.currentPage.includes('/products/')) {
-          matched = false;
-        } else if (cond.pageType === 'cart' && !visitor.currentPage.includes('/cart')) {
-          matched = false;
-        }
-      }
-
       // Dwell Time
-      if (cond.minDwellTimeSec && visitor.sessionDurationSec < cond.minDwellTimeSec) {
+      if (cond.minDwellTimeSec !== undefined && visitor.sessionDurationSec < cond.minDwellTimeSec) {
         matched = false;
       }
 
       // Product Views Count
-      if (cond.productViewsCount) {
+      if (cond.productViewsCount !== undefined) {
         const productViews = visitor.actions.filter(a => a.type === 'product_view').length;
         if (productViews < cond.productViewsCount) {
           matched = false;
@@ -81,9 +77,16 @@ export class TriggerEngine {
       }
 
       // Cart min amount
-      if (cond.cartMinAmount) {
+      if (cond.minCartValue !== undefined) {
         const cartTotal = visitor.cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-        if (cartTotal < cond.cartMinAmount) {
+        if (cartTotal < cond.minCartValue) {
+          matched = false;
+        }
+      }
+
+      // Target page URL pattern
+      if (cond.targetPageUrlPattern) {
+        if (!visitor.currentPage.toLowerCase().includes(cond.targetPageUrlPattern.toLowerCase())) {
           matched = false;
         }
       }
@@ -103,10 +106,12 @@ export class TriggerEngine {
         return {
           shouldIntervene: true,
           rule,
+          actionType: rule.type,
           reason: `Matched rule: ${rule.name}`,
           customMessage: rule.aiProactiveMessage,
           quickReplies: rule.quickReplies,
-          couponOffer: matchingCampaign
+          couponOffer: matchingCampaign,
+          attachedCoupon: rule.attachedCoupon || (matchingCampaign ? matchingCampaign.code : undefined)
         };
       }
     }

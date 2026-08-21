@@ -11,18 +11,21 @@ import {
   Visitor,
   VisitorAction,
   ChatMessage,
-  SpecialistType
+  SpecialistType,
+  IntegrationConfig,
+  TriggerActionType
 } from '../types';
 import {
-  INITIAL_BUSINESS_PROFILE,
-  INITIAL_PRODUCTS,
-  INITIAL_TRIGGERS,
-  INITIAL_CAMPAIGNS,
-  INITIAL_LEADS,
-  INITIAL_KNOWLEDGE_DOCS,
-  INITIAL_KNOWLEDGE_GAPS,
-  INITIAL_EXPERIMENT,
-  INITIAL_VISITORS
+  initialBusinessProfile,
+  initialProducts,
+  initialTriggers,
+  initialCampaigns,
+  initialLeads,
+  initialKnowledgeDocs,
+  initialKnowledgeGaps,
+  initialExperiment,
+  initialVisitors,
+  initialIntegrations
 } from '../services/mockData';
 import { calculateIntentScore } from '../services/intentEngine';
 import { TriggerEngine } from '../services/triggerEngine';
@@ -60,17 +63,26 @@ interface AppContextType {
   setVisitors: React.Dispatch<React.SetStateAction<Visitor[]>>;
   activeVisitor: Visitor;
   setActiveVisitor: React.Dispatch<React.SetStateAction<Visitor>>;
+  integrations: IntegrationConfig;
+  setIntegrations: React.Dispatch<React.SetStateAction<IntegrationConfig>>;
   viewMode: 'landing' | 'dashboard' | 'playground' | 'storefront' | 'split';
   setViewMode: (mode: 'landing' | 'dashboard' | 'playground' | 'storefront' | 'split') => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  
+
   // Storefront & Widget State
   isWidgetOpen: boolean;
   setIsWidgetOpen: (open: boolean) => void;
   chatMessages: ChatMessage[];
   setChatMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
-  activeProactiveCallout: { rule: TriggerRule; message: string; quickReplies: string[]; coupon?: Campaign } | null;
+  activeProactiveCallout: {
+    rule?: TriggerRule;
+    message: string;
+    quickReplies?: string[];
+    coupon?: Campaign;
+    actionType?: TriggerActionType;
+    attachedCoupon?: string;
+  } | null;
   setActiveProactiveCallout: (callout: any) => void;
   isAiTyping: boolean;
 
@@ -84,6 +96,12 @@ interface AppContextType {
   syncKnowledgeBase: () => void;
   isSyncingKnowledge: boolean;
   toggleTrigger: (triggerId: string) => void;
+  createTrigger: (rule: TriggerRule) => void;
+  updateTrigger: (rule: TriggerRule) => void;
+  deleteTrigger: (triggerId: string) => void;
+  manualPushIntervention: (visitorId: string, message: string, type: TriggerActionType, coupon?: string) => void;
+  updateIntegration: <K extends keyof IntegrationConfig>(key: K, config: Partial<IntegrationConfig[K]>) => void;
+  testWebhookDispatch: (eventType: string) => Promise<{ success: boolean; status: number; latencyMs: number }>;
   updateSpecialist: (type: SpecialistType) => void;
   resetDemoVisitor: () => void;
 }
@@ -98,16 +116,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     plan: 'Growth Pro Plan'
   });
 
-  const [businessProfile, setBusinessProfile] = useState<BusinessProfile>(INITIAL_BUSINESS_PROFILE);
-  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
-  const [triggers, setTriggers] = useState<TriggerRule[]>(INITIAL_TRIGGERS);
-  const [campaigns, setCampaigns] = useState<Campaign[]>(INITIAL_CAMPAIGNS);
-  const [leads, setLeads] = useState<Lead[]>(INITIAL_LEADS);
-  const [knowledgeDocs, setKnowledgeDocs] = useState<KnowledgeDocument[]>(INITIAL_KNOWLEDGE_DOCS);
-  const [knowledgeGaps, setKnowledgeGaps] = useState<KnowledgeGap[]>(INITIAL_KNOWLEDGE_GAPS);
-  const [experiment, setExperiment] = useState<ABExperiment>(INITIAL_EXPERIMENT);
-  const [visitors, setVisitors] = useState<Visitor[]>(INITIAL_VISITORS);
-  
+  const [businessProfile, setBusinessProfile] = useState<BusinessProfile>(initialBusinessProfile);
+  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [triggers, setTriggers] = useState<TriggerRule[]>(initialTriggers);
+  const [campaigns, setCampaigns] = useState<Campaign[]>(initialCampaigns);
+  const [leads, setLeads] = useState<Lead[]>(initialLeads);
+  const [knowledgeDocs, setKnowledgeDocs] = useState<KnowledgeDocument[]>(initialKnowledgeDocs);
+  const [knowledgeGaps, setKnowledgeGaps] = useState<KnowledgeGap[]>(initialKnowledgeGaps);
+  const [experiment, setExperiment] = useState<ABExperiment>(initialExperiment);
+  const [visitors, setVisitors] = useState<Visitor[]>(initialVisitors);
+  const [integrations, setIntegrations] = useState<IntegrationConfig>(initialIntegrations);
+
   const [viewMode, setViewMode] = useState<'landing' | 'dashboard' | 'playground' | 'storefront' | 'split'>('landing');
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [isSyncingKnowledge, setIsSyncingKnowledge] = useState<boolean>(false);
@@ -116,34 +135,42 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activeVisitor, setActiveVisitor] = useState<Visitor>(() => ({
     id: `vis_${Math.random().toString(36).substring(2, 7)}`,
     ipLocation: 'Bengaluru, India',
-    device: 'Chrome / Desktop',
-    firstSeen: 'Just now',
-    lastSeen: 'Just now',
+    device: 'Desktop • Chrome 128',
+    browser: 'Chrome 128',
+    referrer: 'google.com (Search: "performance marathon shoes")',
     isReturning: false,
-    sessionDurationSec: 10,
-    pagesViewed: ['/home'],
-    currentPage: '/home',
+    sessionStartTime: Date.now() - 15000,
+    sessionDurationSec: 15,
+    pagesViewed: ['/'],
+    currentPage: '/',
     cart: [],
     actions: [
-      { id: 'init-1', type: 'page_view', timestamp: 'Just now', details: 'Landed on AuraFit Luxe Storefront', page: '/home' }
+      { id: 'init-1', type: 'page_view', timestamp: 'Just now', details: 'Landed on AuraFit Luxe Storefront', page: '/' }
     ],
-    intentScore: 10,
-    intentLevel: 'Cold'
+    intentScore: 12,
+    intentLevel: 'cold',
+    signalBreakdown: [
+      { name: 'Initial Landing', points: 12, maxPoints: 30, reason: 'Landed on storefront homepage' }
+    ],
+    lastSeen: 'Just now'
   }));
 
   // Widget & Chat State
   const [isWidgetOpen, setIsWidgetOpen] = useState<boolean>(false);
   const [activeProactiveCallout, setActiveProactiveCallout] = useState<{
-    rule: TriggerRule;
+    rule?: TriggerRule;
     message: string;
-    quickReplies: string[];
+    quickReplies?: string[];
     coupon?: Campaign;
+    actionType?: TriggerActionType;
+    attachedCoupon?: string;
   } | null>(null);
+
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome-msg',
       sender: 'assistant',
-      content: `Hey there! Welcome to **AuraFit Luxe**. Looking for marathon running shoes, all-day walking sneakers, or help with sizing?`,
+      content: `Hey there! Welcome to **Convora AI** on AuraFit Luxe. Looking for marathon running shoes, all-day walking sneakers, or help with sizing?`,
       timestamp: 'Just now',
       quickReplies: ['Recommend running shoes', 'Help with sizing', 'View 7-day return policy', 'Current offers']
     }
@@ -165,12 +192,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const timer = setInterval(() => {
       setActiveVisitor(prev => {
         const nextDuration = prev.sessionDurationSec + 1;
-        const { score, level } = calculateIntentScore({ ...prev, sessionDurationSec: nextDuration });
+        const { score, level, signalBreakdown } = calculateIntentScore({ ...prev, sessionDurationSec: nextDuration });
         return {
           ...prev,
           sessionDurationSec: nextDuration,
           intentScore: score,
-          intentLevel: level
+          intentLevel: level,
+          signalBreakdown
         };
       });
     }, 1000);
@@ -189,8 +217,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       timestamp: 'Just now',
       details,
       page: metadata?.page || activeVisitor.currentPage,
-      productName: metadata?.product?.name,
-      value: metadata?.value
+      productId: metadata?.product?.id,
+      metadata
     };
 
     setActiveVisitor(prev => {
@@ -205,32 +233,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (existingIdx >= 0) {
           updatedCart[existingIdx].quantity += 1;
         } else {
-          updatedCart.push({ product: metadata.product, quantity: 1, selectedSize: 'UK 9' });
+          updatedCart.push({ product: metadata.product, quantity: 1, selectedSize: 'UK 9', selectedColor: metadata.product.variants.colors[0] });
         }
       }
 
       const tempVisitor: Visitor = {
         ...prev,
         currentPage: metadata?.page || prev.currentPage,
-        currentProduct: metadata?.product || prev.currentProduct,
         cart: updatedCart,
         pagesViewed: updatedPages,
         actions: updatedActions,
         lastSeen: 'Just now'
       };
 
-      const { score, level } = calculateIntentScore(tempVisitor);
+      const { score, level, signalBreakdown } = calculateIntentScore(tempVisitor);
       tempVisitor.intentScore = score;
       tempVisitor.intentLevel = level;
+      tempVisitor.signalBreakdown = signalBreakdown;
 
       // Evaluate proactive trigger rules
       const triggerResult = TriggerEngine.evaluate(tempVisitor, triggers, campaigns);
       if (triggerResult.shouldIntervene && triggerResult.rule) {
         tempVisitor.interventionTriggered = {
-          type: triggerResult.rule.name,
+          type: triggerResult.rule.type,
           message: triggerResult.customMessage || triggerResult.rule.aiProactiveMessage,
           timestamp: 'Just now',
-          status: 'shown'
+          status: 'shown',
+          couponAttached: triggerResult.attachedCoupon
         };
 
         // Update trigger metrics
@@ -247,7 +276,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           rule: triggerResult.rule,
           message: triggerResult.customMessage || triggerResult.rule.aiProactiveMessage,
           quickReplies: triggerResult.quickReplies || triggerResult.rule.quickReplies,
-          coupon: triggerResult.couponOffer
+          coupon: triggerResult.couponOffer,
+          actionType: triggerResult.actionType,
+          attachedCoupon: triggerResult.attachedCoupon
         });
       }
 
@@ -320,9 +351,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       email: leadData.email,
       phone: leadData.phone,
       requirement: leadData.requirement || 'Interested in footwear consultation',
-      interestedProduct: activeVisitor.currentProduct?.name || 'Aura CloudStrider Pro Max',
+      interestedProduct: products[0].name,
       intentScore: Math.max(activeVisitor.intentScore, 85),
-      intentLevel: 'Hot',
+      intentLevel: 'hot',
       status: 'new',
       createdAt: 'Just now'
     };
@@ -345,7 +376,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const normalized = code.trim().toUpperCase();
     const campaign = campaigns.find(c => c.code.toUpperCase() === normalized && c.isActive);
     if (campaign) {
-      trackVisitorEvent('coupon_applied', `Applied coupon code ${campaign.code} (${campaign.discountPercentage}% off)`);
+      trackVisitorEvent('cart_add', `Applied coupon code ${campaign.code} (${campaign.discountPercentage}% off)`);
       setCampaigns(prev =>
         prev.map(c => (c.id === campaign.id ? { ...c, redemptions: c.redemptions + 1 } : c))
       );
@@ -357,8 +388,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Complete checkout & record conversion attribution
   const completeCheckout = () => {
     const cartTotal = activeVisitor.cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0) || 2799;
-    
-    // Confetti celebration
+
     confetti({
       particleCount: 120,
       spread: 70,
@@ -369,11 +399,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setActiveVisitor(prev => ({
       ...prev,
-      hasPurchased: true,
-      purchasedAmount: cartTotal,
       cart: [],
       intentScore: 100,
-      intentLevel: 'Hot'
+      intentLevel: 'hot'
     }));
 
     // Update A/B Experiment & ROI metrics
@@ -401,7 +429,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (activeVisitor.interventionTriggered) {
       setTriggers(prev =>
         prev.map(t =>
-          t.name === activeVisitor.interventionTriggered?.type
+          t.type === activeVisitor.interventionTriggered?.type
             ? {
                 ...t,
                 performance: {
@@ -416,6 +444,106 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  // Trigger CRUD Actions
+  const toggleTrigger = (triggerId: string) => {
+    setTriggers(prev =>
+      prev.map(t => (t.id === triggerId ? { ...t, enabled: !t.enabled } : t))
+    );
+  };
+
+  const createTrigger = (rule: TriggerRule) => {
+    setTriggers(prev => [rule, ...prev]);
+  };
+
+  const updateTrigger = (rule: TriggerRule) => {
+    setTriggers(prev => prev.map(t => (t.id === rule.id ? rule : t)));
+  };
+
+  const deleteTrigger = (triggerId: string) => {
+    setTriggers(prev => prev.filter(t => t.id !== triggerId));
+  };
+
+  // Manual Intervention Push directly from Dashboard
+  const manualPushIntervention = (
+    visitorId: string,
+    message: string,
+    type: TriggerActionType,
+    coupon?: string
+  ) => {
+    const interventionPayload = {
+      message,
+      actionType: type,
+      attachedCoupon: coupon,
+      quickReplies: ['View Recommendation', 'Apply Coupon', 'Ask a Question']
+    };
+
+    if (activeVisitor.id === visitorId || visitorId === 'active') {
+      setActiveVisitor(prev => ({
+        ...prev,
+        interventionTriggered: {
+          type,
+          message,
+          timestamp: 'Just now',
+          status: 'shown',
+          couponAttached: coupon
+        }
+      }));
+      setActiveProactiveCallout(interventionPayload);
+    }
+
+    setVisitors(prev =>
+      prev.map(v =>
+        v.id === visitorId
+          ? {
+              ...v,
+              interventionTriggered: {
+                type,
+                message,
+                timestamp: 'Just now',
+                status: 'shown',
+                couponAttached: coupon
+              }
+            }
+          : v
+      )
+    );
+  };
+
+  // Integrations Management
+  const updateIntegration = <K extends keyof IntegrationConfig>(
+    key: K,
+    config: Partial<IntegrationConfig[K]>
+  ) => {
+    setIntegrations(prev => ({
+      ...prev,
+      [key]: {
+        ...prev[key],
+        ...config
+      }
+    }));
+  };
+
+  const testWebhookDispatch = async (eventType: string): Promise<{ success: boolean; status: number; latencyMs: number }> => {
+    const latency = Math.floor(Math.random() * 80) + 80;
+    const newDelivery = {
+      id: `evt-${Date.now()}`,
+      event: eventType,
+      status: 200,
+      timestamp: 'Just now',
+      latencyMs: latency
+    };
+
+    setIntegrations(prev => ({
+      ...prev,
+      webhooks: {
+        ...prev.webhooks,
+        recentDeliveries: [newDelivery, ...prev.webhooks.recentDeliveries.slice(0, 4)]
+      }
+    }));
+
+    return { success: true, status: 200, latencyMs: latency };
+  };
+
   // Approve Knowledge Gap
   const approveKnowledgeGap = (gapId: string, customAnswer?: string) => {
     const gap = knowledgeGaps.find(g => g.id === gapId);
@@ -423,7 +551,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const answer = customAnswer || gap.suggestedAnswer;
 
-    // Add to knowledge documents
     const newDoc: KnowledgeDocument = {
       id: `doc-${Date.now()}`,
       title: `FAQ: ${gap.question}`,
@@ -453,12 +580,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }, 1500);
   };
 
-  const toggleTrigger = (triggerId: string) => {
-    setTriggers(prev =>
-      prev.map(t => (t.id === triggerId ? { ...t, enabled: !t.enabled } : t))
-    );
-  };
-
   const updateSpecialist = (type: SpecialistType) => {
     setBusinessProfile(prev => ({ ...prev, activeSpecialist: type }));
   };
@@ -467,26 +588,31 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setActiveVisitor({
       id: `vis_${Math.random().toString(36).substring(2, 7)}`,
       ipLocation: 'Bengaluru, India',
-      device: 'Chrome / Desktop',
-      firstSeen: 'Just now',
-      lastSeen: 'Just now',
+      device: 'Desktop • Chrome 128',
+      browser: 'Chrome 128',
+      referrer: 'google.com (Search: "marathon running shoes nitrogen foam")',
       isReturning: false,
+      sessionStartTime: Date.now(),
       sessionDurationSec: 0,
-      pagesViewed: ['/home'],
-      currentPage: '/home',
+      pagesViewed: ['/'],
+      currentPage: '/',
       cart: [],
       actions: [
-        { id: `init-${Date.now()}`, type: 'page_view', timestamp: 'Just now', details: 'Started fresh browsing session', page: '/home' }
+        { id: `init-${Date.now()}`, type: 'page_view', timestamp: 'Just now', details: 'Started fresh browsing session', page: '/' }
       ],
       intentScore: 10,
-      intentLevel: 'Cold'
+      intentLevel: 'cold',
+      signalBreakdown: [
+        { name: 'Initial Landing', points: 10, maxPoints: 30, reason: 'Landed on storefront homepage' }
+      ],
+      lastSeen: 'Just now'
     });
     setActiveProactiveCallout(null);
     setChatMessages([
       {
         id: 'welcome-msg-new',
         sender: 'assistant',
-        content: `Hey there! Welcome to **AuraFit Luxe**. Looking for marathon running shoes, all-day walking sneakers, or help with sizing?`,
+        content: `Hey there! Welcome to **Convora AI** on AuraFit Luxe. Looking for marathon running shoes, all-day walking sneakers, or help with sizing?`,
         timestamp: 'Just now',
         quickReplies: ['Recommend running shoes', 'Help with sizing', 'View 7-day return policy', 'Current offers']
       }
@@ -519,6 +645,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setVisitors,
         activeVisitor,
         setActiveVisitor,
+        integrations,
+        setIntegrations,
         viewMode,
         setViewMode,
         activeTab,
@@ -539,6 +667,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         syncKnowledgeBase,
         isSyncingKnowledge,
         toggleTrigger,
+        createTrigger,
+        updateTrigger,
+        deleteTrigger,
+        manualPushIntervention,
+        updateIntegration,
+        testWebhookDispatch,
         updateSpecialist,
         resetDemoVisitor
       }}

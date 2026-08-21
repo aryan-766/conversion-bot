@@ -13,6 +13,7 @@ import { ProductsTab } from './components/dashboard/ProductsTab';
 import { CampaignsTab } from './components/dashboard/CampaignsTab';
 import { LeadsTab } from './components/dashboard/LeadsTab';
 import { ExperimentsTab } from './components/dashboard/ExperimentsTab';
+import { IntegrationsTab } from './components/dashboard/IntegrationsTab';
 import { StorefrontDemo } from './components/storefront/StorefrontDemo';
 
 const MainLayout: React.FC = () => {
@@ -31,6 +32,8 @@ const MainLayout: React.FC = () => {
         return <VisitorStreamTab />;
       case 'interventions':
         return <InterventionsTab />;
+      case 'integrations':
+        return <IntegrationsTab />;
       case 'specialist':
         return <SpecialistTab />;
       case 'knowledge':

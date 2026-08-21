@@ -10,8 +10,7 @@ import {
   Tag,
   UserCheck,
   Split,
-  HelpCircle,
-  TrendingUp,
+  Layers,
   Sparkles
 } from 'lucide-react';
 
@@ -49,6 +48,13 @@ export const Sidebar: React.FC = () => {
       label: 'Trigger & Intervention',
       icon: Zap,
       badge: `${triggers.filter(t => t.enabled).length} Active`,
+      badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700'
+    },
+    {
+      id: 'integrations',
+      label: 'Integrations & APIs',
+      icon: Layers,
+      badge: 'Shopify / Meta',
       badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700'
     },
     {

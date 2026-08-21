@@ -1,84 +1,120 @@
-export type IntentLevel = 'Cold' | 'Interested' | 'High Intent' | 'Hot';
+// Core Data Types for Convora AI Sales Layer
 
-export type SpecialistType = 'sales' | 'advisor' | 'lead' | 'support' | 'custom';
+export type IntentLevel = 'cold' | 'interested' | 'high_intent' | 'hot';
 
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  rating: number;
-  reviewCount: number;
-  category: string;
-  image: string;
-  url: string;
-  inStock: boolean;
-  description: string;
-  variants: {
-    sizes: string[];
-    colors: string[];
-  };
-  features: string[];
-  bestFor: string;
-}
+export type SpecialistType = 'sales' | 'advisor' | 'lead' | 'support';
+
+export type TriggerActionType =
+  | 'chat_callout'
+  | 'sticky_pill'
+  | 'scarcity_drawer'
+  | 'vip_lead_modal'
+  | 'whatsapp_recovery';
 
 export interface VisitorAction {
   id: string;
-  type: 'page_view' | 'product_view' | 'size_guide_open' | 'review_view' | 'cart_add' | 'cart_remove' | 'checkout_start' | 'exit_intent' | 'chat_open' | 'coupon_applied' | 'purchase';
+  type: 'page_view' | 'product_view' | 'size_guide_open' | 'cart_add' | 'cart_remove' | 'review_view' | 'price_hover' | 'chat_open' | 'chat_message' | 'purchase' | 'exit_intent' | 'tab_switch' | 'checkout_start';
   timestamp: string;
   details: string;
   page?: string;
+  productId?: string;
   productName?: string;
   value?: number;
+  metadata?: Record<string, any>;
+}
+
+export interface IntentSignalScore {
+  name: string;
+  points: number;
+  maxPoints: number;
+  reason: string;
+}
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+  selectedSize?: string;
+  selectedColor?: string;
 }
 
 export interface Visitor {
   id: string;
   ipLocation: string;
   device: string;
-  firstSeen: string;
-  lastSeen: string;
+  browser?: string;
+  referrer?: string;
+  firstSeen?: string;
   isReturning: boolean;
-  sessionDurationSec: number;
-  pagesViewed: string[];
-  currentPage: string;
-  currentProduct?: Product;
-  cart: {
-    product: Product;
-    quantity: number;
-    selectedSize?: string;
-    selectedColor?: string;
-  }[];
-  actions: VisitorAction[];
   intentScore: number;
   intentLevel: IntentLevel;
-  interventionTriggered?: {
-    type: string;
-    message: string;
-    timestamp: string;
-    status: 'shown' | 'engaged' | 'dismissed' | 'converted';
-  };
+  signalBreakdown: IntentSignalScore[];
+  currentPage: string;
+  currentProduct?: Product;
+  pagesViewed: string[];
+  sessionStartTime?: number;
+  sessionDurationSec: number;
+  cart: CartItem[];
+  actions: VisitorAction[];
+  lastSeen: string;
   hasPurchased?: boolean;
   purchasedAmount?: number;
+  interventionTriggered?: {
+    type: TriggerActionType | string;
+    message: string;
+    timestamp: string;
+    status: 'shown' | 'clicked' | 'dismissed' | 'converted';
+    couponAttached?: string;
+  };
+}
+
+export interface ProductVariant {
+  sizes: string[];
+  colors: string[];
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  category: string;
+  image: string;
+  description: string;
+  features: string[];
+  bestFor: string;
+  rating: number;
+  reviewCount: number;
+  variants: ProductVariant;
+  inventoryCount: number;
+  sku: string;
+}
+
+export interface TriggerCondition {
+  minIntentScore?: number;
+  minDwellTimeSec?: number;
+  productViewsCount?: number;
+  sizeGuideOpened?: boolean;
+  priceHoverDurationSec?: number;
+  cartAbandonedSec?: number;
+  exitIntentDetected?: boolean;
+  minCartValue?: number;
+  targetPageUrlPattern?: string;
+  cartContainsCategory?: string;
+  pageType?: string;
+  cartMinAmount?: number;
 }
 
 export interface TriggerRule {
   id: string;
   name: string;
-  enabled: boolean;
-  type: 'hesitation' | 'comparison' | 'exit_intent' | 'cart_hesitation' | 'return_visitor' | 'high_intent_custom';
   description: string;
-  conditions: {
-    minIntentScore?: number;
-    pageType?: 'product' | 'category' | 'cart' | 'any';
-    minDwellTimeSec?: number;
-    productViewsCount?: number;
-    cartMinAmount?: number;
-    sizeGuideOpened?: boolean;
-    exitIntentDetected?: boolean;
-  };
+  type: TriggerActionType;
+  enabled: boolean;
+  priority: number;
+  conditions: TriggerCondition;
   aiProactiveMessage: string;
-  quickReplies: string[];
+  quickReplies?: string[];
+  attachedCoupon?: string;
   cooldownMinutes: number;
   performance: {
     shown: number;
@@ -107,26 +143,26 @@ export interface Campaign {
 
 export interface Lead {
   id: string;
-  visitorId: string;
   name: string;
-  email: string;
   phone: string;
-  requirement: string;
-  interestedProduct?: string;
+  email: string;
+  visitorId: string;
   intentScore: number;
   intentLevel: IntentLevel;
-  status: 'new' | 'contacted' | 'converted' | 'lost';
+  interestedProduct?: string;
+  requirement: string;
   createdAt: string;
+  status: 'new' | 'contacted' | 'converted' | 'lost';
 }
 
 export interface KnowledgeDocument {
   id: string;
   title: string;
-  type: 'website' | 'faq' | 'policy' | 'product_catalog' | 'manual';
-  status: 'synced' | 'processing' | 'failed';
+  type: 'website' | 'policy' | 'product_catalog' | 'faq' | 'manual';
+  sourceUrl?: string;
+  status: 'synced' | 'indexing' | 'error';
   lastSynced: string;
   chunksCount: number;
-  url?: string;
   previewText: string;
 }
 
@@ -140,46 +176,29 @@ export interface KnowledgeGap {
   status: 'detected' | 'approved' | 'dismissed';
 }
 
-export interface ExperimentVariant {
-  id: 'control' | 'ai_agent';
-  name: string;
-  trafficPercentage: number;
-  visitors: number;
-  conversions: number;
-  conversionRate: number;
-  totalRevenue: number;
-  aov: number;
-}
-
 export interface ABExperiment {
-  id: string;
   name: string;
-  status: 'running' | 'completed';
+  status: 'running' | 'paused' | 'concluded';
   startDate: string;
-  control: ExperimentVariant;
-  variant: ExperimentVariant;
+  control: {
+    name: string;
+    visitors: number;
+    conversions: number;
+    conversionRate: number;
+    totalRevenue: number;
+    aov: number;
+  };
+  variant: {
+    name: string;
+    visitors: number;
+    conversions: number;
+    conversionRate: number;
+    totalRevenue: number;
+    aov: number;
+  };
   conversionLiftPercent: number;
   revenueLiftAmount: number;
-  statisticalSignificance: number; // e.g. 98.4%
-}
-
-export interface BusinessProfile {
-  name: string;
-  url: string;
-  type: string;
-  tagline: string;
-  productsCount: number;
-  categoriesCount: number;
-  faqsCount: number;
-  policiesCount: number;
-  brandColors: {
-    primary: string;
-    accent: string;
-  };
-  sellingPoints: string[];
-  shippingPolicy: string;
-  returnPolicy: string;
-  activeSpecialist: SpecialistType;
+  statisticalSignificance: number;
 }
 
 export interface ChatMessage {
@@ -189,6 +208,56 @@ export interface ChatMessage {
   timestamp: string;
   productCards?: Product[];
   quickReplies?: string[];
-  couponCode?: string;
   showLeadForm?: boolean;
+  couponCode?: string;
+}
+
+export interface BusinessProfile {
+  name: string;
+  url: string;
+  primaryCategory: string;
+  currency: string;
+  activeSpecialist: SpecialistType;
+  brandVoice: string;
+}
+
+export interface IntegrationConfig {
+  shopify: {
+    connected: boolean;
+    shopDomain: string;
+    autoSyncCatalog: boolean;
+    trackCartTokens: boolean;
+    lastSynced: string;
+  };
+  whatsapp: {
+    enabled: boolean;
+    phoneNumberId: string;
+    wabaId: string;
+    autoRecoveryDelayMinutes: number;
+    templateName: string;
+    status: 'connected' | 'disconnected';
+  };
+  crm: {
+    provider: 'hubspot' | 'zoho' | 'salesforce' | 'klaviyo' | 'none';
+    apiKeyConfigured: boolean;
+    autoSyncHighIntent: boolean;
+    intentThreshold: number;
+  };
+  logistics: {
+    provider: 'delhivery' | 'shiprocket' | 'bluedart';
+    livePincodeCheck: boolean;
+    autoTrackingLookup: boolean;
+  };
+  webhooks: {
+    endpointUrl: string;
+    secretKey: string;
+    eventsSubscribed: string[];
+    recentDeliveries: Array<{
+      id: string;
+      event: string;
+      status: number;
+      timestamp: string;
+      latencyMs: number;
+    }>;
+  };
 }
